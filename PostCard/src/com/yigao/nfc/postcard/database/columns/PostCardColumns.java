@@ -14,4 +14,8 @@ public interface PostCardColumns extends BaseColumns {
     public static final String CONTACT_BIRTHDAY = "birthday";
 
     public static final String CONTACT_IDENTIFICATION = "contact_id";
+
+    public static final String CONTACT_GENERATE_TIMESTAMP = "generate_timesramp";
+
+    public static final String CONTACT_GENERATE_ADDRESS = "generate_address";
 }

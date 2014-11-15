@@ -56,7 +56,9 @@ public class PostCardSQLiteOpenHelper extends SQLiteOpenHelper {
         sql.append(PostCardColumns.CONTACT_PINYIN).append(" text,");
         sql.append(PostCardColumns.CONTACT_GENDER).append(" integer,");
         sql.append(PostCardColumns.CONTACT_BIRTHDAY).append(" integer,");
-        sql.append(PostCardColumns.CONTACT_IDENTIFICATION).append(" text unique not null");
+        sql.append(PostCardColumns.CONTACT_IDENTIFICATION).append(" text unique not null,");
+        sql.append(PostCardColumns.CONTACT_GENERATE_ADDRESS).append(" text,");
+        sql.append(PostCardColumns.CONTACT_GENERATE_TIMESTAMP).append(" integer");
         sql.append(");");
 
         db.execSQL(sql.toString());

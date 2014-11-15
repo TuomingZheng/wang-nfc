@@ -2,5 +2,7 @@
 
     <string name="app_name">PostCard</string>
     <string name="load_activity_title">明信片</string>
+    <string name="load_activity_description">XX名信片</string>
+    <string name="load_activity_copyright">copyright 2014-2017</string>
 
 </resources>

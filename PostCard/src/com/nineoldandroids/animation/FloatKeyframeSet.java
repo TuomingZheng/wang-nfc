@@ -16,11 +16,11 @@
 
 package com.nineoldandroids.animation;
 
+import java.util.ArrayList;
+
 import android.view.animation.Interpolator;
 
 import com.nineoldandroids.animation.Keyframe.FloatKeyframe;
-
-import java.util.ArrayList;
 
 /**
  * This class holds a collection of FloatKeyframe objects and is called by ValueAnimator to calculate

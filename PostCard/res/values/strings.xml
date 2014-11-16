@@ -11,5 +11,9 @@
     <string name="post_card_emial_empty">暂无电子邮件</string>
     <string name="post_card_company_title">公司</string>
     <string name="post_card_company_empty">暂无公司</string>
+    <string name="post_card_company_name">公司名称：</string>
+    <string name="post_card_company_address">公司地址：</string>
+    <string name="post_card_company_staff">个人职务：</string>
+    <string name="post_card_company_depart">所在部门：</string>
 
 </resources>

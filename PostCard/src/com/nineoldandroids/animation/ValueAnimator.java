@@ -16,6 +16,10 @@
 
 package com.nineoldandroids.animation;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import android.animation.TimeInterpolator;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
@@ -24,9 +28,6 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AnimationUtils;
 import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * This class provides a simple timing engine for running animations

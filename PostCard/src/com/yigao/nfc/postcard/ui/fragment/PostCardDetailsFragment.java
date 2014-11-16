@@ -10,10 +10,14 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.nfc.wang.postcard.R;
 import com.yigao.nfc.postcard.database.model.PostCard;
+import com.yigao.nfc.postcard.ui.adapter.ContactCompanyAdapter;
+import com.yigao.nfc.postcard.ui.adapter.ContactEmailAdapter;
+import com.yigao.nfc.postcard.ui.adapter.ContactMobileAdapter;
 import com.yigao.nfc.postcard.ui.view.DropDownLayout;
 import com.yigao.nfc.postcard.ui.view.DropDownLayout.OnDropDownListener;
 
@@ -28,6 +32,12 @@ public class PostCardDetailsFragment extends Fragment implements OnClickListener
     private ImageView mEmailStateView;
 
     private ImageView mCompanyStateView;
+
+    private ListView mMobileListView;
+
+    private ListView mEmailListView;
+
+    private ListView mCompanyListView;
 
     private PostCard mPostCard;
 
@@ -70,10 +80,10 @@ public class PostCardDetailsFragment extends Fragment implements OnClickListener
 
     private void initContactMobileLayout(View detailsLayout) {
         DropDownLayout mobileLayout = (DropDownLayout) detailsLayout.findViewById(R.id.mobile_item);
-        View layout = mobileLayout.setTopLayout(R.layout.contact_mobile_item_header);
-        mMobileStateView = (ImageView) layout.findViewById(R.id.contact_mobile_state);
+        View topLayout = mobileLayout.setTopLayout(R.layout.contact_mobile_item_header);
+        mMobileStateView = (ImageView) topLayout.findViewById(R.id.contact_mobile_state);
 
-        mobileLayout.setBottomLayout(R.layout.contact_mobile_bottom_layout);
+        View bottomLayout = mobileLayout.setBottomLayout(R.layout.contact_mobile_bottom_layout);
         mobileLayout.setOnDropDownListener(new OnDropDownListener() {
 
             @Override
@@ -87,14 +97,22 @@ public class PostCardDetailsFragment extends Fragment implements OnClickListener
             }
 
         });
+
+        TextView mobileEmptyView = (TextView) bottomLayout.findViewById(R.id.mobile_empty);
+        mMobileListView = (ListView) bottomLayout.findViewById(R.id.mobile_list);
+        mMobileListView.setEmptyView(mobileEmptyView);
+
+        ContactMobileAdapter mobileAdapter = new ContactMobileAdapter(getActivity(),
+                mPostCard.getContactMobiles());
+        mMobileListView.setAdapter(mobileAdapter);
     }
 
     private void initContactEmailLayout(View detailsLayout) {
         DropDownLayout emailLayout = (DropDownLayout) detailsLayout.findViewById(R.id.email_item);
-        View layout = emailLayout.setTopLayout(R.layout.contact_email_top_layout);
-        mEmailStateView = (ImageView) layout.findViewById(R.id.contact_email_state);
+        View topLayout = emailLayout.setTopLayout(R.layout.contact_email_top_layout);
+        mEmailStateView = (ImageView) topLayout.findViewById(R.id.contact_email_state);
 
-        emailLayout.setBottomLayout(R.layout.contact_email_bottom_layout);
+        View bottomLayout = emailLayout.setBottomLayout(R.layout.contact_email_bottom_layout);
         emailLayout.setOnDropDownListener(new OnDropDownListener() {
 
             @Override
@@ -108,14 +126,23 @@ public class PostCardDetailsFragment extends Fragment implements OnClickListener
             }
 
         });
+
+        TextView emailEmptyView = (TextView) bottomLayout.findViewById(R.id.email_empty);
+        mEmailListView = (ListView) bottomLayout.findViewById(R.id.email_list);
+        mEmailListView.setEmptyView(emailEmptyView);
+
+        ContactEmailAdapter emailAdapter = new ContactEmailAdapter(getActivity(),
+                mPostCard.getContactEmails());
+        mEmailListView.setAdapter(emailAdapter);
     }
 
     private void initContactCompanyLayout(View detailsLayout) {
-        DropDownLayout companyLayout = (DropDownLayout) detailsLayout.findViewById(R.id.company_item);
-        View layout = companyLayout.setTopLayout(R.layout.contact_company_top_layout);
-        mCompanyStateView = (ImageView) layout.findViewById(R.id.contact_company_state);
+        DropDownLayout companyLayout = (DropDownLayout) detailsLayout
+                .findViewById(R.id.company_item);
+        View topLayout = companyLayout.setTopLayout(R.layout.contact_company_top_layout);
+        mCompanyStateView = (ImageView) topLayout.findViewById(R.id.contact_company_state);
 
-        companyLayout.setBottomLayout(R.layout.contact_company_bottom_layout);
+        View bottomLayout = companyLayout.setBottomLayout(R.layout.contact_company_bottom_layout);
         companyLayout.setOnDropDownListener(new OnDropDownListener() {
 
             @Override
@@ -129,6 +156,14 @@ public class PostCardDetailsFragment extends Fragment implements OnClickListener
             }
 
         });
+
+        TextView companyEmptyView = (TextView) bottomLayout.findViewById(R.id.company_empty);
+        mCompanyListView = (ListView) bottomLayout.findViewById(R.id.company_list);
+        mCompanyListView.setEmptyView(companyEmptyView);
+
+        ContactCompanyAdapter companyAdapter = new ContactCompanyAdapter(getActivity(),
+                mPostCard.getContactCompanys());
+        mCompanyListView.setAdapter(companyAdapter);
     }
 
     @Override

@@ -1,9 +1,8 @@
 package com.nineoldandroids.view;
 
-import android.view.View;
-
 import static com.nineoldandroids.view.animation.AnimatorProxy.NEEDS_PROXY;
 import static com.nineoldandroids.view.animation.AnimatorProxy.wrap;
+import android.view.View;
 
 public final class ViewHelper {
     private ViewHelper() {}

@@ -16,6 +16,7 @@
 
 package com.nineoldandroids.animation;
 
+import android.animation.TimeInterpolator;
 import android.view.animation.Interpolator;
 
 /**

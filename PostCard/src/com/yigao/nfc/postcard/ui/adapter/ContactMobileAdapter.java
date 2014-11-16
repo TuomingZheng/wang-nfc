@@ -27,7 +27,9 @@ public class ContactMobileAdapter extends BaseAdapter implements OnClickListener
 
         mInflater = LayoutInflater.from(context);
         mContactMobile = new ArrayList<ContactMobile>();
-        mContactMobile.addAll(mobiles);
+        if (mobiles != null && !mobiles.isEmpty()) {
+            mContactMobile.addAll(mobiles);
+        }
     }
 
     @Override

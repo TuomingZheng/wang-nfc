@@ -20,8 +20,10 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
+
 import android.view.View;
 import android.view.animation.Interpolator;
+
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.ValueAnimator;
 import com.nineoldandroids.view.animation.AnimatorProxy;

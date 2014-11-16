@@ -1,15 +1,15 @@
 
 package com.yigao.nfc.postcard.database;
 
-import com.yigao.nfc.postcard.database.columns.ContactCompanyColumns;
-import com.yigao.nfc.postcard.database.columns.ContactEmailColumns;
-import com.yigao.nfc.postcard.database.columns.ContactMobileColumns;
-import com.yigao.nfc.postcard.database.columns.PostCardColumns;
-
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.yigao.nfc.postcard.database.columns.ContactCompanyColumns;
+import com.yigao.nfc.postcard.database.columns.ContactEmailColumns;
+import com.yigao.nfc.postcard.database.columns.ContactMobileColumns;
+import com.yigao.nfc.postcard.database.columns.PostCardColumns;
 
 public class PostCardSQLiteOpenHelper extends SQLiteOpenHelper {
 

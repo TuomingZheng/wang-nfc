@@ -16,12 +16,12 @@
 
 package com.nineoldandroids.animation;
 
-import android.util.Log;
-
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
+
+import android.util.Log;
 
 import com.nineoldandroids.util.FloatProperty;
 import com.nineoldandroids.util.IntProperty;

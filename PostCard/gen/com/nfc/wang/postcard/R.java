@@ -11,21 +11,76 @@ public final class R {
     public static final class attr {
     }
     public static final class drawable {
-        public static final int ic_launcher=0x7f020000;
-        public static final int splash_icon=0x7f020001;
+        public static final int actionbar_bg=0x7f020000;
+        public static final int avatar=0x7f020001;
+        public static final int back_arrow_selector=0x7f020002;
+        public static final int back_holo_dark=0x7f020003;
+        public static final int back_holo_light=0x7f020004;
+        public static final int clear_dark=0x7f020005;
+        public static final int clear_light=0x7f020006;
+        public static final int clear_selector=0x7f020007;
+        public static final int company=0x7f020008;
+        public static final int email=0x7f020009;
+        public static final int ic_hide=0x7f02000a;
+        public static final int ic_launcher=0x7f02000b;
+        public static final int ic_show=0x7f02000c;
+        public static final int phone_call=0x7f02000d;
+        public static final int splash_icon=0x7f02000e;
+        public static final int toolbar_bg=0x7f02000f;
     }
     public static final class id {
-        public static final int loading_description=0x7f060001;
-        public static final int loading_icon=0x7f060000;
+        public static final int action_bar_back=0x7f060000;
+        public static final int action_bar_details=0x7f060012;
+        public static final int action_bar_title=0x7f060001;
+        public static final int company_empty=0x7f060003;
+        public static final int company_item=0x7f060018;
+        public static final int company_list=0x7f060002;
+        public static final int contact_company_state=0x7f060004;
+        public static final int contact_email_state=0x7f060007;
+        public static final int contact_mobile_state=0x7f06000a;
+        public static final int drop_down_bottom_layout=0x7f06000e;
+        public static final int drop_down_top_layout=0x7f06000d;
+        public static final int email_empty=0x7f060006;
+        public static final int email_item=0x7f060017;
+        public static final int email_list=0x7f060005;
+        public static final int loading_description=0x7f060010;
+        public static final int loading_icon=0x7f06000f;
+        public static final int main_activity_root=0x7f060011;
+        public static final int mobile_delete=0x7f06000c;
+        public static final int mobile_empty=0x7f060009;
+        public static final int mobile_item=0x7f060016;
+        public static final int mobile_list=0x7f060008;
+        public static final int mobile_type=0x7f06000b;
+        public static final int name_icon=0x7f060014;
+        public static final int name_item=0x7f060013;
+        public static final int name_text=0x7f060015;
     }
     public static final class layout {
-        public static final int load_activity_layout=0x7f030000;
+        public static final int action_bar_layout=0x7f030000;
+        public static final int contact_company_bottom_layout=0x7f030001;
+        public static final int contact_company_top_layout=0x7f030002;
+        public static final int contact_email_bottom_layout=0x7f030003;
+        public static final int contact_email_top_layout=0x7f030004;
+        public static final int contact_mobile_bottom_layout=0x7f030005;
+        public static final int contact_mobile_item_header=0x7f030006;
+        public static final int contact_mobile_item_layout=0x7f030007;
+        public static final int drop_down_layout=0x7f030008;
+        public static final int load_activity_layout=0x7f030009;
+        public static final int main_activity_layout=0x7f03000a;
+        public static final int post_card_details_layout=0x7f03000b;
     }
     public static final class string {
         public static final int app_name=0x7f040000;
         public static final int load_activity_copyright=0x7f040003;
         public static final int load_activity_description=0x7f040002;
         public static final int load_activity_title=0x7f040001;
+        public static final int post_card_company_empty=0x7f04000a;
+        public static final int post_card_company_title=0x7f040009;
+        public static final int post_card_email_title=0x7f040007;
+        public static final int post_card_emial_empty=0x7f040008;
+        public static final int post_card_mobile_empty=0x7f040005;
+        public static final int post_card_mobile_title=0x7f040004;
+        public static final int post_card_mobile_type=0x7f040006;
     }
     public static final class style {
         /** 
@@ -54,5 +109,6 @@ public final class R {
  All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f050001;
+        public static final int PostCardDetailsTextView=0x7f050002;
     }
 }

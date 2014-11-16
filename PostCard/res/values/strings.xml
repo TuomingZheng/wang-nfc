@@ -4,5 +4,12 @@
     <string name="load_activity_title">明信片</string>
     <string name="load_activity_description">XX名信片</string>
     <string name="load_activity_copyright">copyright 2014-2017</string>
+    <string name="post_card_mobile_title">联系电话</string>
+    <string name="post_card_mobile_empty">暂无联系电话</string>
+    <string name="post_card_mobile_type">类型:</string>
+    <string name="post_card_email_title">电子邮件</string>
+    <string name="post_card_emial_empty">暂无电子邮件</string>
+    <string name="post_card_company_title">公司</string>
+    <string name="post_card_company_empty">暂无公司</string>
 
 </resources>

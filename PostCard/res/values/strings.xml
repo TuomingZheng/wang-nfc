@@ -15,5 +15,8 @@
     <string name="post_card_company_address">公司地址：</string>
     <string name="post_card_company_staff">个人职务：</string>
     <string name="post_card_company_depart">所在部门：</string>
+    <string name="post_card_card_holder">名片夹</string>
+    <string name="post_card_card_holder_import_contact">导入系统联系人</string>
+    <string name="post_card_card_holder_edit_contact">手动输入名片</string>
 
 </resources>

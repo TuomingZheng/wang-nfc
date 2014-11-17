@@ -15,5 +15,12 @@
     <string name="post_card_company_address">公司地址：</string>
     <string name="post_card_company_staff">个人职务：</string>
     <string name="post_card_company_depart">所在部门：</string>
+    <string name="post_card_details_title">名信片详情</string>
+    <string name="post_card_editable_title">编辑名信片信息</string>
+    <string name="post_card_family_name_hints">姓氏</string>
+    <string name="post_card_first_name_hints">名字</string>
+    <string name="post_card_mobile">电话</string>
+    <string name="post_card_email">电子邮件</string>
+    <string name="post_card_company">公司</string>
 
 </resources>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="mobile_type">
+        <item>工作电话</item>
+        <item>家庭电话</item>
+    </string-array>
+    <string-array name="email_type">
+        <item>工作电邮</item>
+        <item>个人电邮</item>
+    </string-array>
+
+</resources>

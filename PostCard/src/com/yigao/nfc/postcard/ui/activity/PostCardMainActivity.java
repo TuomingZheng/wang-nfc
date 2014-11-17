@@ -8,10 +8,13 @@ import android.support.v4.app.FragmentManager;
 import com.nfc.wang.postcard.R;
 import com.yigao.nfc.postcard.database.model.PostCard;
 import com.yigao.nfc.postcard.ui.fragment.PostCardDetailsFragment;
+import com.yigao.nfc.postcard.ui.fragment.PostCardEditableFragment;
 
 public class PostCardMainActivity extends FragmentActivity {
 
     private PostCardDetailsFragment mDetailsFragment;
+
+    private PostCardEditableFragment mEditableFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,9 +23,9 @@ public class PostCardMainActivity extends FragmentActivity {
 
         PostCard postCard = new PostCard();
         postCard.setContactName("Jim");
-        mDetailsFragment = new PostCardDetailsFragment(postCard);
+        mEditableFragment = new PostCardEditableFragment(postCard);
         FragmentManager fm = getSupportFragmentManager();
-        fm.beginTransaction().add(R.id.main_activity_root, mDetailsFragment)
+        fm.beginTransaction().add(R.id.main_activity_root, mEditableFragment)
                 .commitAllowingStateLoss();
     }
 }

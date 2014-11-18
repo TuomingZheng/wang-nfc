@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/exchange_bg"
+    android:orientation="vertical"
+    android:paddingBottom="20dp" >
+
+    <include
+        android:id="@+id/action_bar_details"
+        layout="@layout/action_bar_layout" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/exchange_bg"
+        android:scrollbars="none" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/exchange_bg"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/bg_item"
+                android:paddingBottom="20dp"
+                android:paddingTop="20dp" >
+
+                <ImageView
+                    android:id="@+id/avatar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp"
+                    android:background="@null"
+                    android:contentDescription="@null"
+                    android:src="@drawable/avatar" />
+
+                <EditText
+                    android:id="@+id/family_name_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_toRightOf="@id/avatar"
+                    android:background="@drawable/edittext_holo_light"
+                    android:hint="@string/post_card_family_name_hints" />
+
+                <EditText
+                    android:id="@+id/first_name_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/family_name_edit_text"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@id/avatar"
+                    android:background="@drawable/edittext_holo_light"
+                    android:hint="@string/post_card_first_name_hints" />
+            </RelativeLayout>
+
+            <com.yigao.nfc.postcard.ui.view.DropDownLayout
+                android:id="@+id/mobile_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/bg_item"
+                android:paddingBottom="5dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="5dp" >
+            </com.yigao.nfc.postcard.ui.view.DropDownLayout>
+
+            <com.yigao.nfc.postcard.ui.view.DropDownLayout
+                android:id="@+id/email_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/bg_item"
+                android:paddingBottom="5dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="5dp" >
+            </com.yigao.nfc.postcard.ui.view.DropDownLayout>
+
+            <com.yigao.nfc.postcard.ui.view.DropDownLayout
+                android:id="@+id/company_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/bg_item"
+                android:paddingBottom="5dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="5dp" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

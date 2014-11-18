@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -32,6 +33,8 @@ public class PostCardDetailsFragment extends Fragment implements OnClickListener
     private ImageView mEmailStateView;
 
     private ImageView mCompanyStateView;
+
+    private ImageView mEdtiableView;
 
     private ListView mMobileListView;
 
@@ -65,8 +68,8 @@ public class PostCardDetailsFragment extends Fragment implements OnClickListener
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View detailsLayout = inflater.inflate(R.layout.post_card_details_layout, null, false);
-        mBackButton = (ImageButton) detailsLayout.findViewById(R.id.action_bar_back);
-        mBackButton.setOnClickListener(this);
+
+        initTitleBar(detailsLayout, inflater);
 
         mNameView = (TextView) detailsLayout.findViewById(R.id.name_text);
         mNameView.setText(mPostCard.getContactName());
@@ -76,6 +79,20 @@ public class PostCardDetailsFragment extends Fragment implements OnClickListener
         initContactCompanyLayout(detailsLayout);
 
         return detailsLayout;
+    }
+
+    private void initTitleBar(View detailsLayout, LayoutInflater inflater) {
+        mBackButton = (ImageButton) detailsLayout.findViewById(R.id.action_bar_back);
+        mBackButton.setOnClickListener(this);
+
+        TextView titleView = (TextView) detailsLayout.findViewById(R.id.action_bar_title);
+        titleView.setText(R.string.post_card_details_title);
+
+        FrameLayout rightActionContainer = (FrameLayout) detailsLayout
+                .findViewById(R.id.action_bar_right_container);
+        inflater.inflate(R.layout.post_card_details_right_action, rightActionContainer, true);
+        mEdtiableView = (ImageView) rightActionContainer.findViewById(R.id.post_card_edtiable);
+        mEdtiableView.setOnClickListener(this);
     }
 
     private void initContactMobileLayout(View detailsLayout) {
@@ -172,6 +189,10 @@ public class PostCardDetailsFragment extends Fragment implements OnClickListener
             if (mEventListener != null) {
                 mEventListener.onPostCardDetailsBackAction();
             }
+        } else if (mEdtiableView == v) {
+            if (mEventListener != null) {
+                mEventListener.onPostcardDetailsEditAction(mPostCard);
+            }
         }
     }
 
@@ -179,6 +200,7 @@ public class PostCardDetailsFragment extends Fragment implements OnClickListener
 
         public void onPostCardDetailsBackAction();
 
+        public void onPostcardDetailsEditAction(PostCard card);
     }
 
 }

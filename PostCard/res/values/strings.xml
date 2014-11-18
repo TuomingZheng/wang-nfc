@@ -18,5 +18,12 @@
     <string name="post_card_card_holder">名片夹</string>
     <string name="post_card_card_holder_import_contact">导入系统联系人</string>
     <string name="post_card_card_holder_edit_contact">手动输入名片</string>
+    <string name="post_card_details_title">名信片详情</string>
+    <string name="post_card_editable_title">编辑名信片信息</string>
+    <string name="post_card_family_name_hints">姓氏</string>
+    <string name="post_card_first_name_hints">名字</string>
+    <string name="post_card_mobile">电话</string>
+    <string name="post_card_email">电子邮件</string>
+    <string name="post_card_company">公司</string>
 
 </resources>

@@ -3,7 +3,6 @@ package com.yigao.nfc.postcard.ui.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,7 +54,6 @@ public class DropDownLayout extends FrameLayout implements View.OnClickListener 
         if (mTopItemLayout == v) {
             LinearLayout.LayoutParams params = (LinearLayout.LayoutParams)
                     mBottomLayout.getLayoutParams();
-            Log.d("zheng", "height = " + params.height);
             if (params.height <= 0) {
                 performBottomLayoutShow();
             } else {

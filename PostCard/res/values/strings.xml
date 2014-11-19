@@ -25,5 +25,6 @@
     <string name="post_card_mobile">电话</string>
     <string name="post_card_email">电子邮件</string>
     <string name="post_card_company">公司</string>
+    <string name="post_card_no_nfc_hardware_error">没有NFC识别设备</string>
 
 </resources>

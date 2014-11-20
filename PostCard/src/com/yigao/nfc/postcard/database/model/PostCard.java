@@ -5,107 +5,108 @@ import java.util.List;
 
 public class PostCard {
 
-    private String mContactName;
+    private String contactName;
 
-    private String mContactPinYin;
+    private String contactPinYin;
 
-    private int mContactGender;
+    private int contactGender;
 
-    private long mContactBirthday;
+    private long contactBirthday;
 
-    private String mID;
+    private String ID;
 
-    private String mRecordGenerateAddress;
+    private String recordGenerateAddress;
 
-    private long mRecordGenerateTimeStamp;
+    private long recordGenerateTimeStamp;
 
-    private List<ContactMobile> mContactMobile;
+    private List<ContactMobile> contactMobile;
 
-    private List<ContactEmail> mContactEmails;
+    private List<ContactEmail> contactEmails;
 
-    private List<ContactCompany> mContactCompany;
+    private List<ContactCompany> contactCompany;
 
     public PostCard() {
 
     }
 
-    public void setContactName(String contactName) {
-        mContactName = contactName;
-    }
-
     public String getContactName() {
-        return mContactName;
+        return contactName;
     }
 
-    public void setContactPinYin(String contactPinYin) {
-        mContactPinYin = contactPinYin;
+    public void setContactName(String contactName) {
+        this.contactName = contactName;
     }
 
     public String getContactPinYin() {
-        return mContactPinYin;
+        return contactPinYin;
     }
 
-    public void setContactGender(int gender) {
-        mContactGender = gender;
+    public void setContactPinYin(String contactPinYin) {
+        this.contactPinYin = contactPinYin;
     }
 
     public int getContactGender() {
-        return mContactGender;
+        return contactGender;
     }
 
-    public void setContactBirthday(long birthday) {
-        mContactBirthday = birthday;
+    public void setContactGender(int contactGender) {
+        this.contactGender = contactGender;
     }
 
     public long getContactBirthday() {
-        return mContactBirthday;
+        return contactBirthday;
     }
 
-    public void setContactIdentification(String id) {
-        mID = id;
+    public void setContactBirthday(long contactBirthday) {
+        this.contactBirthday = contactBirthday;
     }
 
-    public String getContactIdentificationId() {
-        return mID;
+    public String getID() {
+        return ID;
     }
 
-    public void setContactGenerateTimestamp(long timeStamp) {
-        mRecordGenerateTimeStamp = timeStamp;
+    public void setID(String iD) {
+        ID = iD;
     }
 
-    public long getContactGenerateTimestamp() {
-        return mRecordGenerateTimeStamp;
+    public String getRecordGenerateAddress() {
+        return recordGenerateAddress;
     }
 
-    public void setContactGenerateAddress(String address) {
-        mRecordGenerateAddress = address;
+    public void setRecordGenerateAddress(String recordGenerateAddress) {
+        this.recordGenerateAddress = recordGenerateAddress;
     }
 
-    public String getContactGenerateAddress() {
-        return mRecordGenerateAddress;
+    public long getRecordGenerateTimeStamp() {
+        return recordGenerateTimeStamp;
     }
 
-    public void setContactMobiles(List<ContactMobile> mobiles) {
-        mContactMobile = mobiles;
+    public void setRecordGenerateTimeStamp(long recordGenerateTimeStamp) {
+        this.recordGenerateTimeStamp = recordGenerateTimeStamp;
     }
 
-    public List<ContactMobile> getContactMobiles() {
-        return mContactMobile;
+    public List<ContactMobile> getContactMobile() {
+        return contactMobile;
     }
 
-    public void setContactEmails(List<ContactEmail> emails) {
-        mContactEmails = emails;
+    public void setContactMobile(List<ContactMobile> contactMobile) {
+        this.contactMobile = contactMobile;
     }
 
     public List<ContactEmail> getContactEmails() {
-        return mContactEmails;
+        return contactEmails;
     }
 
-    public void setContactCompanys(List<ContactCompany> companys) {
-        mContactCompany = companys;
+    public void setContactEmails(List<ContactEmail> contactEmails) {
+        this.contactEmails = contactEmails;
     }
 
-    public List<ContactCompany> getContactCompanys() {
-        return mContactCompany;
+    public List<ContactCompany> getContactCompany() {
+        return contactCompany;
     }
+
+    public void setContactCompany(List<ContactCompany> contactCompany) {
+        this.contactCompany = contactCompany;
+    }
+
 }

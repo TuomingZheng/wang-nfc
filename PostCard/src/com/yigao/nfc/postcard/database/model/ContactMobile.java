@@ -3,47 +3,48 @@ package com.yigao.nfc.postcard.database.model;
 
 public class ContactMobile {
 
-    private String mMobileType;
+    private String mobileType;
 
-    private String mMobileNumber;
+    private String mobileNumber;
 
-    private String mMobileMCC;
+    private String mobileMCC;
 
-    private String mMobileOwnerId;
+    private String mobileOwnerId;
 
     public ContactMobile() {
 
     }
 
-    public void setMobileType(String mobileType) {
-        mMobileType = mobileType;
-    }
-
     public String getMobileType() {
-        return mMobileType;
+        return mobileType;
     }
 
-    public void setMobileNumber(String mobileNumber) {
-        mMobileNumber = mobileNumber;
+    public void setMobileType(String mobileType) {
+        this.mobileType = mobileType;
     }
 
     public String getMobileNumber() {
-        return mMobileNumber;
+        return mobileNumber;
     }
 
-    public void setMobileMCC(String mcc) {
-        mMobileMCC = mcc;
+    public void setMobileNumber(String mobileNumber) {
+        this.mobileNumber = mobileNumber;
     }
 
     public String getMobileMCC() {
-        return mMobileMCC;
+        return mobileMCC;
     }
 
-    public void setMobileOwnerId(String ownerId) {
-        mMobileOwnerId = ownerId;
+    public void setMobileMCC(String mobileMCC) {
+        this.mobileMCC = mobileMCC;
     }
 
     public String getMobileOwnerId() {
-        return mMobileOwnerId;
+        return mobileOwnerId;
     }
+
+    public void setMobileOwnerId(String mobileOwnerId) {
+        this.mobileOwnerId = mobileOwnerId;
+    }
+
 }

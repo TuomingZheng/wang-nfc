@@ -3,57 +3,58 @@ package com.yigao.nfc.postcard.database.model;
 
 public class ContactCompany {
 
-    private String mCompanyName;
+    private String companyName;
 
-    private String mCompanyAddress;
+    private String companyAddress;
 
-    private String mStaff;
+    private String staff;
 
-    private String mDepartment;
+    private String department;
 
-    private String mOwnerId;
+    private String ownerId;
 
     public ContactCompany() {
 
     }
 
-    public void setCompanyName(String companyName) {
-        mCompanyName = companyName;
-    }
-
     public String getCompanyName() {
-        return mCompanyName;
+        return companyName;
     }
 
-    public void setCompanyAddress(String companyAddress) {
-        mCompanyAddress = companyAddress;
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 
     public String getCompanyAddress() {
-        return mCompanyAddress;
+        return companyAddress;
     }
 
-    public void setCompanyStaff(String staff) {
-        mStaff = staff;
+    public void setCompanyAddress(String companyAddress) {
+        this.companyAddress = companyAddress;
     }
 
-    public String getCompayStaff() {
-        return mStaff;
+    public String getStaff() {
+        return staff;
     }
 
-    public void setCompanyDepartment(String department) {
-        mDepartment = department;
+    public void setStaff(String staff) {
+        this.staff = staff;
     }
 
-    public String getCompanyDepartment() {
-        return mDepartment;
+    public String getDepartment() {
+        return department;
     }
 
-    public void setRecordOwnerId(String ownerId) {
-        mOwnerId = ownerId;
+    public void setDepartment(String department) {
+        this.department = department;
     }
 
-    public String getRecordOwnerId() {
-        return mOwnerId;
+    public String getOwnerId() {
+        return ownerId;
     }
+
+    public void setOwnerId(String ownerId) {
+        this.ownerId = ownerId;
+    }
+
 }

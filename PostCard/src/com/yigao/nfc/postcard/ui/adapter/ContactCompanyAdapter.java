@@ -65,9 +65,9 @@ public class ContactCompanyAdapter extends BaseAdapter implements OnClickListene
 
         ContactCompany entry = (ContactCompany) getItem(position);
         holder.companyAddressView.setText(entry.getCompanyAddress());
-        holder.companyDepartView.setText(entry.getCompanyDepartment());
+        holder.companyDepartView.setText(entry.getDepartment());
         holder.companyNameView.setText(entry.getCompanyName());
-        holder.companyStaffView.setText(entry.getCompayStaff());
+        holder.companyStaffView.setText(entry.getStaff());
         holder.companyDeleteView.setTag(entry);
 
         return convertView;

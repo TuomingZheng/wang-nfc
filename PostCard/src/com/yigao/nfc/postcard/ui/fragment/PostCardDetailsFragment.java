@@ -120,7 +120,7 @@ public class PostCardDetailsFragment extends Fragment implements OnClickListener
         mMobileListView.setEmptyView(mobileEmptyView);
 
         ContactMobileAdapter mobileAdapter = new ContactMobileAdapter(getActivity(),
-                mPostCard.getContactMobiles());
+                mPostCard.getContactMobile());
         mMobileListView.setAdapter(mobileAdapter);
     }
 
@@ -179,7 +179,7 @@ public class PostCardDetailsFragment extends Fragment implements OnClickListener
         mCompanyListView.setEmptyView(companyEmptyView);
 
         ContactCompanyAdapter companyAdapter = new ContactCompanyAdapter(getActivity(),
-                mPostCard.getContactCompanys());
+                mPostCard.getContactCompany());
         mCompanyListView.setAdapter(companyAdapter);
     }
 

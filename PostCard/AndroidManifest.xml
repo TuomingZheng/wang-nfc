@@ -12,10 +12,11 @@
     <uses-sdk
         android:minSdkVersion="11"
         android:targetSdkVersion="18" />
-	<!-- 读取联系人权限 -->
-	<uses-permission android:name="android.permission.READ_CONTACTS"/>
+    <!-- 读取联系人权限 -->
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
+        android:name="com.yigao.nfc.postcard.app.PostCardApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name" >

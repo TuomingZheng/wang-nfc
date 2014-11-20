@@ -3,37 +3,38 @@ package com.yigao.nfc.postcard.database.model;
 
 public class ContactEmail {
 
-    private int mEmailType;
+    private int emailType;
 
-    private String mEmailAddress;
+    private String emailAddress;
 
-    private String mEmailOwnerId;
+    private String emailOwnerId;
 
     public ContactEmail() {
 
     }
 
-    public void setEmailType(int emailType) {
-        mEmailType = emailType;
+    public int getEmailType() {
+        return emailType;
     }
 
-    public int getEmailType() {
-        return mEmailType;
+    public void setEmailType(int emailType) {
+        this.emailType = emailType;
+    }
+
+    public String getEmailAddress() {
+        return emailAddress;
     }
 
     public void setEmailAddress(String emailAddress) {
-        mEmailAddress = emailAddress;
-    }
-
-    public String getEmialAddress() {
-        return mEmailAddress;
-    }
-
-    public void setEmailOwnerId(String ownerId) {
-        mEmailOwnerId = ownerId;
+        this.emailAddress = emailAddress;
     }
 
     public String getEmailOwnerId() {
-        return mEmailOwnerId;
+        return emailOwnerId;
     }
+
+    public void setEmailOwnerId(String emailOwnerId) {
+        this.emailOwnerId = emailOwnerId;
+    }
+
 }

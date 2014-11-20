@@ -63,7 +63,7 @@ public class ContactEmailAdapter extends BaseAdapter implements View.OnClickList
         ContactEmail entry = (ContactEmail) getItem(position);
         holder.emailDeleteView.setTag(entry);
         holder.emailTypeView.setText(entry.getEmailType());
-        holder.emailAddressView.setText(entry.getEmialAddress());
+        holder.emailAddressView.setText(entry.getEmailAddress());
 
         return convertView;
     }

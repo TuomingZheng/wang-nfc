@@ -136,7 +136,7 @@ public class PostCardEditableFragment extends Fragment implements OnClickListene
         mMobileListView.setEmptyView(mobileEmptyView);
 
         mMobileAdapter = new ContactMobileAdapter(getActivity(),
-                mPostCard.getContactMobiles());
+                mPostCard.getContactMobile());
         mMobileListView.setAdapter(mMobileAdapter);
     }
 
@@ -206,7 +206,7 @@ public class PostCardEditableFragment extends Fragment implements OnClickListene
         mCompanyListView = (ListView) bottomLayout.findViewById(R.id.company_list);
         mCompanyListView.setEmptyView(companyEmptyView);
 
-        mCompanyAdapter = new ContactCompanyAdapter(getActivity(), mPostCard.getContactCompanys());
+        mCompanyAdapter = new ContactCompanyAdapter(getActivity(), mPostCard.getContactCompany());
         mCompanyListView.setAdapter(mCompanyAdapter);
     }
 

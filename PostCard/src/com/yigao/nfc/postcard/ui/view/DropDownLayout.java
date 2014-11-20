@@ -1,9 +1,9 @@
 
 package com.yigao.nfc.postcard.ui.view;
 
+import android.R;
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +12,6 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import com.nfc.wang.postcard.R;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.AnimatorListenerAdapter;
 import com.nineoldandroids.animation.ValueAnimator;
@@ -42,11 +41,11 @@ public class DropDownLayout extends FrameLayout implements View.OnClickListener 
 
     private void init(Context context) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View container = inflater.inflate(R.layout.drop_down_layout, this, true);
-        mTopItemLayout = (RelativeLayout) container.findViewById(R.id.drop_down_top_layout);
-        mTopItemLayout.setOnClickListener(this);
-
-        mBottomLayout = (FrameLayout) container.findViewById(R.id.drop_down_bottom_layout);
+//        View container = inflater.inflate(R.layout.drop_down_layout, this, true);
+//        mTopItemLayout = (RelativeLayout) container.findViewById(R.id.drop_down_top_layout);
+//        mTopItemLayout.setOnClickListener(this);
+//
+//        mBottomLayout = (FrameLayout) container.findViewById(R.id.drop_down_bottom_layout);
         mBottomLayout.setOnClickListener(this);
     }
 
@@ -55,7 +54,6 @@ public class DropDownLayout extends FrameLayout implements View.OnClickListener 
         if (mTopItemLayout == v) {
             LinearLayout.LayoutParams params = (LinearLayout.LayoutParams)
                     mBottomLayout.getLayoutParams();
-            Log.d("zheng", "height = " + params.height);
             if (params.height <= 0) {
                 performBottomLayoutShow();
             } else {

@@ -15,7 +15,6 @@ import com.yigao.nfc.postcard.database.model.PostCard;
 import com.yigao.nfc.postcard.ui.fragment.PostCardDetailsFragment;
 import com.yigao.nfc.postcard.ui.fragment.PostCardEditableFragment;
 import com.yigao.nfc.postcard.ui.fragment.PostCardHolderFragment;
-import com.yigao.nfc.postcard.ui.fragment.PostCardImportContactsFragment;
 
 public class PostCardMainActivity extends FragmentActivity implements OnClickListener {
 

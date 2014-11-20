@@ -2,8 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:layout_marginBottom="100dp"
-    android:background="@drawable/exchange_bg"
+    android:paddingBottom="75dp"
     android:orientation="vertical" >
 
     <include android:id="@+id/action_bar_holder"
@@ -12,6 +11,7 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_below="@id/action_bar_holder"
+        android:background="@drawable/exchange_bg"
         android:layout_height="fill_parent" >
 
         <ListView

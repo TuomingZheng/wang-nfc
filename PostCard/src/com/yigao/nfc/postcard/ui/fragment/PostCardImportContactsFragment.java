@@ -23,6 +23,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.nfc.wang.postcard.R;
+import com.yigao.nfc.postcard.database.DataBaseUtil;
 import com.yigao.nfc.postcard.database.model.ContactCompany;
 import com.yigao.nfc.postcard.database.model.ContactEmail;
 import com.yigao.nfc.postcard.database.model.ContactMobile;
@@ -275,7 +276,17 @@ public class PostCardImportContactsFragment extends Fragment implements OnClickL
         } else if (v == mBackButton) {
             mFragmentManager.beginTransaction().remove(this).commitAllowingStateLoss();
         } else if (v == mImportTextView) {
-            Log.d("morning", "mImportTextView click");
+            ArrayList<PostCard> datas = new ArrayList<PostCard>();
+            if(mSelectedList!=null){
+                for(int i=0;i<mSelectedList.size();i++){
+                    if(mSelectedList.get(i)){
+                        datas.add(mData.get(i));
+                    }
+                }
+            }
+            Log.d("morning", "mImportTextView click 导入系统联系人 选中的个数为==="+datas.size());
+            new DataBaseUtil(getActivity()).insertPostCards(datas);
+            new DataBaseUtil(getActivity()).queryPostCardsFromLocalDB();
             // 导入联系人
         } else if (v == mCancelTextView) {
             Log.d("morning", "mCancelTextView clic1k");

@@ -27,8 +27,8 @@ public class LoadActivity extends FragmentActivity {
         if (mNFCAdapter == null) {
             Toast.makeText(this, R.string.post_card_no_nfc_hardware_error,
                     Toast.LENGTH_LONG).show();
-            finish();
-            return;
+//            finish();
+//            return;
         }
 
         final long delayDuration = 1000L;

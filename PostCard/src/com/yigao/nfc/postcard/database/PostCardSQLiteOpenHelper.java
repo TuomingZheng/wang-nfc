@@ -17,16 +17,24 @@ public class PostCardSQLiteOpenHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "post_card";
 
-    private static final String TABLE_POST_CARD = "post_card";
+    public static final String TABLE_POST_CARD = "post_card";
 
-    private static final String TABLE_MOBILE = "mobile";
+    public static final String TABLE_MOBILE = "mobile";
 
-    private static final String TABLE_EMIAL = "email";
+    public static final String TABLE_EMIAL = "email";
 
-    private static final String TABLE_COMPANY = "company";
+    public static final String TABLE_COMPANY = "company";
+    private static PostCardSQLiteOpenHelper instance;
 
-    public PostCardSQLiteOpenHelper(Context context, String name, CursorFactory factory, int version) {
-        super(context, DATABASE_NAME, factory, VERSION_CODE);
+    private PostCardSQLiteOpenHelper(Context context) {
+        super(context, DATABASE_NAME, null, VERSION_CODE);
+    }
+    
+    public static PostCardSQLiteOpenHelper getInstance(Context context){
+        if(instance == null){
+            instance = new PostCardSQLiteOpenHelper(context);
+        }
+        return instance;
     }
 
     @Override
@@ -69,7 +77,7 @@ public class PostCardSQLiteOpenHelper extends SQLiteOpenHelper {
         sql.append("create table ");
         sql.append(TABLE_MOBILE);
         sql.append("(");
-        sql.append(ContactMobileColumns._ID).append(" primary key autoincrement,");
+        sql.append(ContactMobileColumns._ID).append(" integer  primary key autoincrement,");
         sql.append(ContactMobileColumns.MOBILE_TYPE).append(" integer not null,");
         sql.append(ContactMobileColumns.MOBILE_MCC).append(" integer,");
         sql.append(ContactMobileColumns.MOBILE_NUMBER).append(" text not null,");
@@ -84,7 +92,7 @@ public class PostCardSQLiteOpenHelper extends SQLiteOpenHelper {
         sql.append("create table ");
         sql.append(TABLE_EMIAL);
         sql.append(" ( ");
-        sql.append(ContactEmailColumns._ID).append(" primary key autoincrement,");
+        sql.append(ContactEmailColumns._ID).append(" integer  primary key autoincrement,");
         sql.append(ContactEmailColumns.EMAIL_TYPE).append(" integer not null,");
         sql.append(ContactEmailColumns.EMAIL_ADDRESS).append(" text not null unique,");
         sql.append(ContactEmailColumns.EMAIL_OWNER).append(" text not null");
@@ -98,7 +106,7 @@ public class PostCardSQLiteOpenHelper extends SQLiteOpenHelper {
         sql.append("create table ");
         sql.append(TABLE_COMPANY);
         sql.append("(");
-        sql.append(ContactCompanyColumns._ID).append(" primary key autoincrement,");
+        sql.append(ContactCompanyColumns._ID).append(" integer  primary key autoincrement,");
         sql.append(ContactCompanyColumns.COMPANY_ADDRESS).append(" text,");
         sql.append(ContactCompanyColumns.COMPANY_NAME).append(" text not null,");
         sql.append(ContactCompanyColumns.COMPANY_STAFF).append(" text,");
@@ -134,4 +142,5 @@ public class PostCardSQLiteOpenHelper extends SQLiteOpenHelper {
         dropCompayTable.append(";");
         db.execSQL(dropCompayTable.toString());
     }
+    
 }

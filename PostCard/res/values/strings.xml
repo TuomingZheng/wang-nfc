@@ -25,5 +25,9 @@
     <string name="post_card_mobile">电话</string>
     <string name="post_card_email">电子邮件</string>
     <string name="post_card_company">公司</string>
-
+	<string name="post_card_select_all">全选</string>
+	<string name="post_card_dis_select_all">全部取消</string>
+	<string name="post_card_import">导入</string>
+	<string name="post_card_cancel">取消</string>
+	<string name="post_card_no_contact">"暂无系统联系人"</string>
 </resources>

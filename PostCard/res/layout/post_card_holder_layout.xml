@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/darker_gray"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_marginBottom="100dp"
+    android:background="@drawable/exchange_bg"
     android:orientation="vertical" >
 
-    <include
-        android:id="@+id/action_bar_details"
-        layout="@layout/action_bar_holder_layout" />
+    <include android:id="@+id/action_bar_holder"
+        layout="@layout/post_card_holder_action_bar_layout" />
 
     <RelativeLayout
         android:layout_width="fill_parent"
+        android:layout_below="@id/action_bar_holder"
         android:layout_height="fill_parent" >
 
         <ListView
@@ -20,35 +21,47 @@
             android:cacheColorHint="#00000000"
             android:listSelector="#00000000"
             android:scrollbars="none"
+            android:layout_alignParentTop="true"
             android:scrollingCache="false"
-            android:visibility="gone" >
+            android:visibility="visible" >
         </ListView>
 
         <LinearLayout
-			android:layout_alignParentTop="true"
-			android:layout_alignParentRight="true"           
             android:id="@+id/right_top_menu"
-            android:layout_width="100dp"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:layout_marginRight="50dp"
-            android:orientation="vertical"
-            android:background="@android:color/black" >
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/abc_list_selector_disabled_holo_dark"
+            android:orientation="vertical" >
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:id="@+id/import_contact"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="10dp"
+                android:singleLine="true"
                 android:text="@string/post_card_card_holder_import_contact" />
 
             <View
                 android:layout_width="wrap_content"
                 android:layout_height="1px"
                 android:background="@color/setting_common_line" />
-            
+
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
+                android:id="@+id/input_contact"
                 android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="10dp"
                 android:text="@string/post_card_card_holder_edit_contact" />
         </LinearLayout>
     </RelativeLayout>
 
-</LinearLayout>
+</RelativeLayout>

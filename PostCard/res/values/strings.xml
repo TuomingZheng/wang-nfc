@@ -31,5 +31,10 @@
 	<string name="post_card_cancel">取消</string>
 	<string name="post_card_no_contact">"暂无系统联系人"</string>
     <string name="post_card_no_nfc_hardware_error">没有NFC识别设备</string>
+    <string name="post_card_muti_operate">批量操作</string>
+    <string name="post_card_delete">删除</string>
+    <string name="post_card_insert_failure">导入失败</string>
+    <string name="post_card_insert_success">导入成功</string>
+    <string name="post_card_insert_into_nfc">写入到NFC</string>
 
 </resources>

@@ -58,14 +58,15 @@ public final class R {
     }
     public static final class id {
         public static final int action_bar_back=0x7f090000;
+        public static final int action_bar_delete=0x7f090043;
         public static final int action_bar_details=0x7f090034;
-        public static final int action_bar_holder=0x7f090043;
-        public static final int action_bar_import_contact=0x7f09004a;
-        public static final int action_bar_right=0x7f090042;
+        public static final int action_bar_holder=0x7f090044;
+        public static final int action_bar_import_contact=0x7f09004d;
+        public static final int action_bar_menu=0x7f090042;
         public static final int action_bar_right_container=0x7f090002;
         public static final int action_bar_title=0x7f090001;
         public static final int avatar=0x7f09003c;
-        public static final int bottom_view=0x7f09004b;
+        public static final int bottom_view=0x7f09004e;
         public static final int company_add_button=0x7f09000e;
         public static final int company_address=0x7f090011;
         public static final int company_address_edit_text=0x7f090009;
@@ -85,10 +86,12 @@ public final class R {
         public static final int company_staff=0x7f090012;
         public static final int company_staff_edit_text=0x7f09000b;
         public static final int company_staff_label=0x7f09000a;
+        public static final int contact_avatar=0x7f090051;
         public static final int contact_company_state=0x7f090014;
         public static final int contact_email_state=0x7f09001e;
         public static final int contact_icon=0x7f090021;
-        public static final int contact_listview=0x7f09004e;
+        public static final int contact_input_to_nfc=0x7f090052;
+        public static final int contact_listview=0x7f090045;
         public static final int contact_mobile_state=0x7f090028;
         public static final int contact_name=0x7f090020;
         public static final int drop_down_bottom_layout=0x7f09002c;
@@ -104,14 +107,13 @@ public final class R {
         public static final int email_sliding_button=0x7f090017;
         public static final int email_spinner=0x7f090018;
         public static final int email_type=0x7f09001b;
-        public static final int empty_view=0x7f09004f;
+        public static final int empty_view=0x7f090046;
         public static final int family_name_edit_text=0x7f09003d;
         public static final int first_name_edit_text=0x7f09003e;
-        public static final int holder_listview=0x7f090044;
-        public static final int import_action_bar_back=0x7f090048;
-        public static final int import_action_bar_right=0x7f090049;
-        public static final int import_contact=0x7f090046;
-        public static final int input_contact=0x7f090047;
+        public static final int import_action_bar_back=0x7f09004b;
+        public static final int import_action_bar_right=0x7f09004c;
+        public static final int import_contact=0x7f090049;
+        public static final int input_contact=0x7f09004a;
         public static final int loading_description=0x7f09002e;
         public static final int loading_fragment_holder=0x7f090033;
         public static final int loading_icon=0x7f09002d;
@@ -126,6 +128,7 @@ public final class R {
         public static final int mobile_sliding_button=0x7f090024;
         public static final int mobile_spinner=0x7f090025;
         public static final int mobile_type=0x7f090029;
+        public static final int muti_operate=0x7f090048;
         public static final int name_icon=0x7f090036;
         public static final int name_item=0x7f090035;
         public static final int name_text=0x7f090037;
@@ -134,9 +137,9 @@ public final class R {
         public static final int post_card_edtiable=0x7f09003b;
         public static final int post_card_holder=0x7f090030;
         public static final int post_card_holder_iv=0x7f090031;
-        public static final int right_top_menu=0x7f090045;
-        public static final int tv_cancel=0x7f09004c;
-        public static final int tv_select_all=0x7f09004d;
+        public static final int right_top_menu=0x7f090047;
+        public static final int tv_cancel=0x7f09004f;
+        public static final int tv_select_all=0x7f090050;
     }
     public static final class layout {
         public static final int action_bar_layout=0x7f030000;
@@ -154,15 +157,17 @@ public final class R {
         public static final int contact_mobile_item_header=0x7f03000c;
         public static final int contact_mobile_item_layout=0x7f03000d;
         public static final int drop_down_layout=0x7f03000e;
-        public static final int load_fragment_layout=0x7f03000f;
-        public static final int main_activity_layout=0x7f030010;
-        public static final int post_card_details_layout=0x7f030011;
-        public static final int post_card_details_right_action=0x7f030012;
-        public static final int post_card_editable_layout=0x7f030013;
-        public static final int post_card_holder_action_bar_layout=0x7f030014;
-        public static final int post_card_holder_layout=0x7f030015;
-        public static final int post_card_import_contacts_action_bar_layout=0x7f030016;
-        public static final int post_card_import_contacts_layout=0x7f030017;
+        public static final int load_activity_layout=0x7f03000f;
+        public static final int load_fragment_layout=0x7f030010;
+        public static final int main_activity_layout=0x7f030011;
+        public static final int post_card_details_layout=0x7f030012;
+        public static final int post_card_details_right_action=0x7f030013;
+        public static final int post_card_editable_layout=0x7f030014;
+        public static final int post_card_holder_action_bar_layout=0x7f030015;
+        public static final int post_card_holder_layout=0x7f030016;
+        public static final int post_card_import_contacts_action_bar_layout=0x7f030017;
+        public static final int post_card_import_contacts_layout=0x7f030018;
+        public static final int post_card_item=0x7f030019;
     }
     public static final class string {
         public static final int app_name=0x7f070000;
@@ -180,6 +185,7 @@ public final class R {
         public static final int post_card_company_name=0x7f07000b;
         public static final int post_card_company_staff=0x7f07000d;
         public static final int post_card_company_title=0x7f070009;
+        public static final int post_card_delete=0x7f070020;
         public static final int post_card_details_title=0x7f070012;
         public static final int post_card_dis_select_all=0x7f07001a;
         public static final int post_card_editable_title=0x7f070013;
@@ -189,10 +195,14 @@ public final class R {
         public static final int post_card_family_name_hints=0x7f070014;
         public static final int post_card_first_name_hints=0x7f070015;
         public static final int post_card_import=0x7f07001b;
+        public static final int post_card_insert_failure=0x7f070021;
+        public static final int post_card_insert_into_nfc=0x7f070023;
+        public static final int post_card_insert_success=0x7f070022;
         public static final int post_card_mobile=0x7f070016;
         public static final int post_card_mobile_empty=0x7f070005;
         public static final int post_card_mobile_title=0x7f070004;
         public static final int post_card_mobile_type=0x7f070006;
+        public static final int post_card_muti_operate=0x7f07001f;
         public static final int post_card_no_contact=0x7f07001d;
         public static final int post_card_no_nfc_hardware_error=0x7f07001e;
         public static final int post_card_select_all=0x7f070019;

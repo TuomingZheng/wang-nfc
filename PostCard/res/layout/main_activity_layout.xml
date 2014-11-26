@@ -7,6 +7,7 @@
     <!-- 首页底部按钮 -->
 
     <LinearLayout
+        android:id="@+id/bottom_holder"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -63,7 +64,8 @@
         android:id="@+id/loading_fragment_holder"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/transparent" >
+        android:layout_above="@id/bottom_holder"
+        android:background="#BBCCFF" >
     </FrameLayout>
 
 </RelativeLayout>

@@ -4,6 +4,7 @@ package com.yigao.nfc.postcard.ui.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -82,6 +83,14 @@ public class PostCardEditableFragment extends Fragment implements OnClickListene
     public PostCardEditableFragment(PostCard card) {
         super();
         mPostCard = card;
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if (activity instanceof OnPostCardEditEventListener) {
+            mEventListener = (OnPostCardEditEventListener) activity;
+        }
     }
 
     @Override
@@ -256,6 +265,6 @@ public class PostCardEditableFragment extends Fragment implements OnClickListene
 
         public void onPostCardEditBackAction();
 
-        public void onPostcardEditSaveAvtion(PostCard card);
+        public void onPostcardEditSaveAction(PostCard card);
     }
 }

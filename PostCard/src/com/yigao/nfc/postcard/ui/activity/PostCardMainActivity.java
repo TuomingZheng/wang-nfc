@@ -32,14 +32,15 @@ import com.nfc.wang.postcard.R;
 import com.yigao.nfc.postcard.database.DataBaseUtil;
 import com.yigao.nfc.postcard.database.model.PostCard;
 import com.yigao.nfc.postcard.ui.fragment.LoadingFragment;
-import com.yigao.nfc.postcard.ui.fragment.PostCardDetailsFragment;
+import com.yigao.nfc.postcard.ui.fragment.PostCardDetailsFragment.OnPostCardDetailsEventListener;
 import com.yigao.nfc.postcard.ui.fragment.PostCardEditableFragment;
+import com.yigao.nfc.postcard.ui.fragment.PostCardEditableFragment.OnPostCardEditEventListener;
 import com.yigao.nfc.postcard.ui.fragment.PostCardHolderFragment;
+import com.yigao.nfc.postcard.ui.fragment.PostCardHolderFragment.OnPostCardInputActionListener;
 
-public class PostCardMainActivity extends FragmentActivity implements OnClickListener {
+public class PostCardMainActivity extends FragmentActivity implements OnClickListener,
+        OnPostCardInputActionListener, OnPostCardEditEventListener, OnPostCardDetailsEventListener {
 
-    private PostCardDetailsFragment mDetailsFragment;
-    private PostCardEditableFragment mEditableFragment;
     private PostCardHolderFragment mHolderFragment;
 
     // 名片夹的layout
@@ -297,7 +298,7 @@ public class PostCardMainActivity extends FragmentActivity implements OnClickLis
 
     private void launchHolderFragment(FragmentManager fm) {
         mHolderFragment = new PostCardHolderFragment(fm);
-        fm.beginTransaction().add(R.id.main_activity_root, mHolderFragment)
+        fm.beginTransaction().add(R.id.loading_fragment_holder, mHolderFragment)
                 .commitAllowingStateLoss();
     }
 
@@ -310,4 +311,44 @@ public class PostCardMainActivity extends FragmentActivity implements OnClickLis
 
         }
     }
+
+    @Override
+    public void onInputPostCardManual() {
+        PostCard postCard = new PostCard();
+        PostCardEditableFragment manualFragment = new PostCardEditableFragment(postCard);
+        FragmentManager fm = getSupportFragmentManager();
+        fm.beginTransaction().replace(
+                R.id.loading_fragment_holder, manualFragment)
+                .addToBackStack("Manual").commitAllowingStateLoss();
+    }
+
+    @Override
+    public void onInputPostCardNFC() {
+
+    }
+
+    @Override
+    public void onInputPostCardContacts() {
+
+    }
+
+    @Override
+    public void onPostCardEditBackAction() {
+        getSupportFragmentManager().popBackStack();
+    }
+
+    @Override
+    public void onPostcardEditSaveAction(PostCard card) {
+        (new DataBaseUtil(this)).insertPostCard(card);
+    }
+
+    @Override
+    public void onPostCardDetailsBackAction() {
+    }
+
+    @Override
+    public void onPostcardDetailsEditAction(PostCard card) {
+
+    }
+
 }

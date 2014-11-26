@@ -43,10 +43,12 @@ public class PostCardHolderFragment extends Fragment implements OnClickListener 
     private PostCardListAdapter mAdapter;
     private ArrayList<Boolean> mSelectedList = new ArrayList<Boolean>();
 
+    private OnPostCardInputActionListener mInputActionListener;
+
     public PostCardHolderFragment() {
         super();
     }
-    
+
     public PostCardHolderFragment(FragmentManager fm) {
         super();
         mFragmentManager = fm;
@@ -55,8 +57,12 @@ public class PostCardHolderFragment extends Fragment implements OnClickListener 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+
+        if (activity instanceof OnPostCardInputActionListener) {
+            mInputActionListener = (OnPostCardInputActionListener) activity;
+        }
     }
-    
+
     @Override
     public void onResume() {
         super.onResume();
@@ -76,7 +82,7 @@ public class PostCardHolderFragment extends Fragment implements OnClickListener 
         mInputTextView = (TextView) holderLayout.findViewById(R.id.input_contact);
         mListView = (ListView) holderLayout.findViewById(R.id.contact_listview);
         mEmptyViewLayout = (RelativeLayout) holderLayout.findViewById(R.id.empty_view);
-        
+
         mBackButton.setOnClickListener(this);
         mRigthButtonMenu.setOnClickListener(this);
         mRightButtonDelete.setOnClickListener(this);
@@ -86,7 +92,7 @@ public class PostCardHolderFragment extends Fragment implements OnClickListener 
         initData();
         return holderLayout;
     }
-    
+
     private void initData() {
         mListView.setEmptyView(mEmptyViewLayout);
 
@@ -109,7 +115,7 @@ public class PostCardHolderFragment extends Fragment implements OnClickListener 
                     for (int i = 0; i < mData.size(); i++) {
                         mSelectedList.add(false);
                     }
-                    mAdapter = new PostCardListAdapter(getActivity(),mData,mSelectedList);
+                    mAdapter = new PostCardListAdapter(getActivity(), mData, mSelectedList);
                     mListView.setAdapter(mAdapter);
                     mListView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -127,18 +133,17 @@ public class PostCardHolderFragment extends Fragment implements OnClickListener 
                             }
                         }
                     });
-                }else {
+                } else {
                     mMutiModeTextView.setEnabled(false);
                     mMutiModeTextView.setClickable(false);
                 }
             }
         }.execute();
     }
-    
-    public void notifyDataWhenInsertNfcCard(){
+
+    public void notifyDataWhenInsertNfcCard() {
         mAdapter.notifyDataSetChanged();
     }
-
 
     @Override
     public void onClick(View v) {
@@ -162,7 +167,7 @@ public class PostCardHolderFragment extends Fragment implements OnClickListener 
                     .commitAllowingStateLoss();
             // 跳到 PostCardImportContactFragment 选择系统联系人
         } else if (v == mInputTextView) {
-            // 跳到 PostCardInputContactFragment 手动输入联系人
+            mInputActionListener.onInputPostCardManual();
         } else if (v == mRightButtonDelete) {
             // 删除本地postCard
             ArrayList<PostCard> datas = new ArrayList<PostCard>();
@@ -182,5 +187,14 @@ public class PostCardHolderFragment extends Fragment implements OnClickListener 
                 mRigthButtonMenu.setVisibility(View.VISIBLE);
             }
         }
+    }
+
+    public interface OnPostCardInputActionListener {
+
+        public void onInputPostCardManual();
+
+        public void onInputPostCardNFC();
+
+        public void onInputPostCardContacts();
     }
 }

@@ -32,6 +32,7 @@ import com.nfc.wang.postcard.R;
 import com.yigao.nfc.postcard.database.DataBaseUtil;
 import com.yigao.nfc.postcard.database.model.PostCard;
 import com.yigao.nfc.postcard.ui.fragment.LoadingFragment;
+import com.yigao.nfc.postcard.ui.fragment.ORCDetectFragment;
 import com.yigao.nfc.postcard.ui.fragment.PostCardDetailsFragment.OnPostCardDetailsEventListener;
 import com.yigao.nfc.postcard.ui.fragment.PostCardEditableFragment;
 import com.yigao.nfc.postcard.ui.fragment.PostCardEditableFragment.OnPostCardEditEventListener;
@@ -61,6 +62,12 @@ public class PostCardMainActivity extends FragmentActivity implements OnClickLis
     PendingIntent mNfcPendingIntent;
     IntentFilter[] mWriteTagFilters;
     IntentFilter[] mNdefExchangeFilters;
+
+    @Override
+    protected void onActivityResult(int arg0, int arg1, Intent arg2) {
+        super.onActivityResult(arg0, arg1, arg2);
+        Log.d("zheng", "onActivityResult() method called!");
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -307,8 +314,10 @@ public class PostCardMainActivity extends FragmentActivity implements OnClickLis
         if (view == mPostHolderLayout) {
             // 点击名片夹
         } else if (view == mCaptureButton) {
-            // TODO 点击拍照
-
+            ORCDetectFragment fragment = new ORCDetectFragment();
+            FragmentManager fm = getSupportFragmentManager();
+            fm.beginTransaction().replace(R.id.loading_fragment_holder, fragment)
+                    .commitAllowingStateLoss();
         }
     }
 
@@ -346,6 +355,7 @@ public class PostCardMainActivity extends FragmentActivity implements OnClickLis
 
     @Override
     public void onPostCardDetailsBackAction() {
+
     }
 
     @Override

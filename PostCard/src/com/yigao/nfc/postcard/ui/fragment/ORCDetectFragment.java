@@ -16,6 +16,7 @@ import android.os.Looper;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,8 +39,11 @@ public class ORCDetectFragment extends Fragment implements View.OnClickListener 
     private static TextView tvResult;
     private static ImageView ivSelected;
     private static ImageView ivTreated;
-    private static Button btnCamera;
-    private static Button btnSelect;
+
+    private static Button mTakePictureButton;
+
+    private static Button mChoicePhototButton;
+
     private static CheckBox chPreTreat;
     private static String textResult;
     private static Bitmap bitmapSelected;
@@ -63,12 +67,18 @@ public class ORCDetectFragment extends Fragment implements View.OnClickListener 
             IMAGE_PATH = PostCardApplication.getInstance().getCacheDir().getAbsolutePath()
                     + File.separator + "images";
         }
+
+        Log.d("zheng", "IMAGE_PATH = " + IMAGE_PATH);
+        File imageDir = new File(IMAGE_PATH);
+        if (!imageDir.exists()) {
+            imageDir.mkdir();
+        }
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
+        Log.d("zheng", "onActivityResult() method called!");
         if (requestCode == REQUEST_TAKE_PHOTOS) {
             if (Activity.RESULT_OK == resultCode) {
                 handleTakeCameraAction();
@@ -94,12 +104,14 @@ public class ORCDetectFragment extends Fragment implements View.OnClickListener 
         tvResult = (TextView) rootLayout.findViewById(R.id.tv_result);
         ivSelected = (ImageView) rootLayout.findViewById(R.id.iv_selected);
         ivTreated = (ImageView) rootLayout.findViewById(R.id.iv_treated);
-        btnCamera = (Button) rootLayout.findViewById(R.id.btn_camera);
-        btnSelect = (Button) rootLayout.findViewById(R.id.btn_select);
+
         chPreTreat = (CheckBox) rootLayout.findViewById(R.id.ch_pretreat);
 
-        btnCamera.setOnClickListener(this);
-        btnSelect.setOnClickListener(this);
+        mTakePictureButton = (Button) rootLayout.findViewById(R.id.btn_camera);
+        mTakePictureButton.setOnClickListener(this);
+
+        mChoicePhototButton = (Button) rootLayout.findViewById(R.id.btn_select);
+        mChoicePhototButton.setOnClickListener(this);
 
         mLanguageType = "chi_sim";
 
@@ -108,9 +120,9 @@ public class ORCDetectFragment extends Fragment implements View.OnClickListener 
 
     @Override
     public void onClick(View v) {
-        if (v == btnCamera) {
+        if (v == mTakePictureButton) {
             performCameraAction();
-        } else if (v == btnSelect) {
+        } else if (v == mChoicePhototButton) {
             performChooseImageAction();
         }
     }
@@ -153,38 +165,33 @@ public class ORCDetectFragment extends Fragment implements View.OnClickListener 
 
         bitmapSelected = decodeUriAsBitmap(Uri.fromFile(new File(IMAGE_PATH,
                 "temp_cropped.jpg")));
-        if (chPreTreat.isChecked()) {
-            tvResult.setText("预处理中......");
-        } else {
-            tvResult.setText("识别中......");
-        }
-        ivSelected.setImageBitmap(bitmapSelected);
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                if (chPreTreat.isChecked()) {
-                    bitmapTreated = ORCImagePreProcess
-                            .doPretreatment(bitmapSelected);
-                    Message msg = new Message();
-                    msg.what = SHOWTREATEDIMG;
-                    mORDHandler.sendMessage(msg);
-                    textResult = detectWordsOnImage(bitmapTreated);
-                } else {
-                    bitmapTreated = ORCImagePreProcess
-                            .converyToGrayImg(bitmapSelected);
-                    Message msg = new Message();
-                    msg.what = SHOWTREATEDIMG;
-                    mORDHandler.sendMessage(msg);
-                    textResult = detectWordsOnImage(bitmapTreated);
-                }
-                Message msg2 = new Message();
-                msg2.what = SHOWRESULT;
-                mORDHandler.sendMessage(msg2);
+        if (bitmapSelected != null) {
+            if (chPreTreat.isChecked()) {
+                tvResult.setText("预处理中......");
+            } else {
+                tvResult.setText("识别中......");
             }
+            ivSelected.setImageBitmap(bitmapSelected);
 
-        }).start();
-
+            if (chPreTreat.isChecked()) {
+                bitmapTreated = ORCImagePreProcess
+                        .doPretreatment(bitmapSelected);
+                Message msg = new Message();
+                msg.what = SHOWTREATEDIMG;
+                mORDHandler.sendMessage(msg);
+                textResult = detectWordsOnImage(bitmapTreated);
+            } else {
+                bitmapTreated = ORCImagePreProcess
+                        .converyToGrayImg(bitmapSelected);
+                Message msg = new Message();
+                msg.what = SHOWTREATEDIMG;
+                mORDHandler.sendMessage(msg);
+                textResult = detectWordsOnImage(bitmapTreated);
+            }
+            Message msg2 = new Message();
+            msg2.what = SHOWRESULT;
+            mORDHandler.sendMessage(msg2);
+        }
     }
 
     private void performImageCropAction(Uri imageUri) {

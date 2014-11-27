@@ -7,10 +7,13 @@ import java.util.List;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -19,6 +22,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.nfc.wang.postcard.R;
+import com.yigao.nfc.postcard.database.model.ContactCompany;
 import com.yigao.nfc.postcard.database.model.ContactEmail;
 import com.yigao.nfc.postcard.database.model.ContactMobile;
 import com.yigao.nfc.postcard.database.model.PostCard;
@@ -62,9 +66,15 @@ public class PostCardEditableFragment extends Fragment implements OnClickListene
 
     private EditText mCompanyDepartEditText;
 
+    private EditText mFamilyNameEditText;
+
+    private EditText mLastNameEditText;
+
     private Spinner mMobileTypeSpinner;
 
     private Spinner mEmailTypeSpinner;
+
+    private Button mSaveButton;
 
     private PostCard mPostCard;
 
@@ -98,6 +108,7 @@ public class PostCardEditableFragment extends Fragment implements OnClickListene
         View detailsLayout = inflater.inflate(R.layout.post_card_editable_layout, null, false);
 
         initTitleBar(detailsLayout);
+        initNameLayout(detailsLayout);
         initMobileGroupLayout(detailsLayout);
         initEmailGroupLayout(detailsLayout);
         initCompanyGroupLayout(detailsLayout);
@@ -111,6 +122,9 @@ public class PostCardEditableFragment extends Fragment implements OnClickListene
 
         TextView titleView = (TextView) container.findViewById(R.id.action_bar_title);
         titleView.setText(R.string.post_card_editable_title);
+
+        mSaveButton = (Button) container.findViewById(R.id.save_button);
+        mSaveButton.setOnClickListener(this);
     }
 
     private void initMobileGroupLayout(View container) {
@@ -219,6 +233,52 @@ public class PostCardEditableFragment extends Fragment implements OnClickListene
         mCompanyListView.setAdapter(mCompanyAdapter);
     }
 
+    private void initNameLayout(View detailsLayout) {
+        mFamilyNameEditText = (EditText) detailsLayout.findViewById(R.id.family_name_edit_text);
+        mFamilyNameEditText.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable arg0) {
+                String familyName = mFamilyNameEditText.getText().toString();
+                StringBuilder name = new StringBuilder(familyName);
+                name.append(mLastNameEditText.getText().toString());
+                mPostCard.setContactName(name.toString());
+            }
+        });
+
+        mLastNameEditText = (EditText) detailsLayout.findViewById(R.id.first_name_edit_text);
+        mLastNameEditText.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable arg0) {
+                String familyName = mFamilyNameEditText.getText().toString();
+                StringBuilder name = new StringBuilder(familyName);
+                name.append(mLastNameEditText.getText().toString());
+                mPostCard.setContactName(name.toString());
+            }
+        });
+    }
+
     private void performContactMobileAction() {
         ContactMobile entry = new ContactMobile();
         entry.setMobileMCC("");
@@ -243,7 +303,26 @@ public class PostCardEditableFragment extends Fragment implements OnClickListene
     }
 
     private void performContactCompanyAction() {
+        ContactCompany company = new ContactCompany();
+        company.setCompanyAddress(mCompanyAddressEditText.getText().toString());
+        company.setCompanyName(mCompanyNameEditText.getText().toString());
+        company.setStaff(mCompanyStaffEditText.getText().toString());
+        company.setDepartment(mCompanyDepartEditText.getText().toString());
+        company.setOwnerId(mPostCard.getContactName());
+    }
 
+    private void performPostCardAction() {
+        String family = mFamilyNameEditText.getText().toString();
+        StringBuilder name = new StringBuilder(family);
+        name.append(mLastNameEditText.getEditableText().toString());
+        mPostCard.setContactName(name.toString());
+
+        mPostCard.setContactMobile(mMobileAdapter.getContactMobiles());
+        mPostCard.setContactEmails(mEmailAdapter.getContactEmails());
+        mPostCard.setContactCompany(mCompanyAdapter.getContactCompany());
+
+        mPostCard.setRecordGenerateAddress("");
+        mPostCard.setRecordGenerateTimeStamp(System.currentTimeMillis());
     }
 
     @Override
@@ -258,6 +337,11 @@ public class PostCardEditableFragment extends Fragment implements OnClickListene
             performContactEmailAction();
         } else if (v == mCompanyAddButton) {
             performContactCompanyAction();
+        } else if (mSaveButton == v) {
+            performPostCardAction();
+            if (mEventListener != null) {
+                mEventListener.onPostcardEditSaveAction(mPostCard);
+            }
         }
     }
 

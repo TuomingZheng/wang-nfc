@@ -21,12 +21,15 @@ public class ContactEmailAdapter extends BaseAdapter implements View.OnClickList
 
     private List<ContactEmail> mEmailList;
 
+    private final String[] EMAIL_TYPES;
+
     public ContactEmailAdapter(Context context, List<ContactEmail> emailList) {
         mInflater = LayoutInflater.from(context);
         mEmailList = new ArrayList<ContactEmail>();
         if (emailList != null && !emailList.isEmpty()) {
             mEmailList.addAll(emailList);
         }
+        EMAIL_TYPES = context.getResources().getStringArray(R.array.email_type);
     }
 
     @Override
@@ -62,7 +65,8 @@ public class ContactEmailAdapter extends BaseAdapter implements View.OnClickList
 
         ContactEmail entry = (ContactEmail) getItem(position);
         holder.emailDeleteView.setTag(entry);
-        holder.emailTypeView.setText(entry.getEmailType());
+        final int emailType = entry.getEmailType();
+        holder.emailTypeView.setText(EMAIL_TYPES[emailType]);
         holder.emailAddressView.setText(entry.getEmailAddress());
 
         return convertView;

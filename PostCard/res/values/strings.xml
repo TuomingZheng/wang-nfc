@@ -36,5 +36,6 @@
     <string name="post_card_insert_failure">导入失败</string>
     <string name="post_card_insert_success">导入成功</string>
     <string name="post_card_insert_into_nfc">写入到NFC</string>
+    <string name="post_card_save">保存</string>
 
 </resources>

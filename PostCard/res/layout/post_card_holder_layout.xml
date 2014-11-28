@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:paddingBottom="75dp" >
+     >
 
     <include
         android:id="@+id/action_bar_holder"

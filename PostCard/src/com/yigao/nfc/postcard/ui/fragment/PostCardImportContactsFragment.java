@@ -27,6 +27,7 @@ import com.yigao.nfc.postcard.database.DataBaseUtil;
 import com.yigao.nfc.postcard.database.model.PostCard;
 import com.yigao.nfc.postcard.ui.adapter.ContactListAdapter;
 import com.yigao.nfc.postcard.ui.adapter.ContactListAdapter.ImportAdapterSelected;
+import com.yigao.nfc.postcard.ui.fragment.PostCardEditableFragment.OnPostCardEditEventListener;
 
 public class PostCardImportContactsFragment extends Fragment implements OnClickListener,ImportAdapterSelected{
 
@@ -40,6 +41,7 @@ public class PostCardImportContactsFragment extends Fragment implements OnClickL
     private ArrayList<PostCard> mData = new ArrayList<PostCard>();
     private ContactListAdapter mAdapter;
     private ArrayList<Boolean> mSelectedList = new ArrayList<Boolean>();
+    private OnPostCardImportEventListener mEventListener;
 
     public PostCardImportContactsFragment() {
         super();
@@ -53,6 +55,9 @@ public class PostCardImportContactsFragment extends Fragment implements OnClickL
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+        if (activity instanceof OnPostCardImportEventListener) {
+            mEventListener = (OnPostCardImportEventListener) activity;
+        }
     }
 
     @Override
@@ -148,24 +153,25 @@ public class PostCardImportContactsFragment extends Fragment implements OnClickL
             }
             mAdapter.notifyDataSetChanged();
         } else if (v == mBackButton) {
-            mFragmentManager.beginTransaction().remove(this).commitAllowingStateLoss();
+            mEventListener.onPostCardImportBackAction();
         } else if (v == mImportTextView) {
             ArrayList<PostCard> datas = new ArrayList<PostCard>();
             if (mSelectedList != null) {
                 for (int i = 0; i < mSelectedList.size(); i++) {
                     if (mSelectedList.get(i)) {
                         datas.add(mData.get(i));
-                    }
+                    } 
                 }
             }
             boolean isInsertSuccess = new DataBaseUtil(getActivity()).insertPostCards(datas);
             Log.d("morning", "mImportTextView click 导入系统联系人 选中的个数为===" + datas.size()+"insert is success=="+isInsertSuccess);
             // 导入联系人成功 跳到holderFrament
             if (isInsertSuccess) {
-                Toast.makeText(getActivity(),R.string.post_card_insert_success, Toast.LENGTH_SHORT);
-                mFragmentManager.beginTransaction().remove(this).commitAllowingStateLoss();
+                Toast.makeText(getActivity(),R.string.post_card_insert_success, Toast.LENGTH_SHORT).show();
+                mFragmentManager.popBackStack();
+                mEventListener.onPostcardImportSuccessAction();
             }else {
-                Toast.makeText(getActivity(),R.string.post_card_insert_failure, Toast.LENGTH_SHORT);
+                Toast.makeText(getActivity(),R.string.post_card_insert_failure, Toast.LENGTH_SHORT).show();
             }
             
         } else if (v == mCancelTextView) {
@@ -189,5 +195,12 @@ public class PostCardImportContactsFragment extends Fragment implements OnClickL
         }else {
             mRigthButton.setText(R.string.post_card_select_all);
         }
+    }
+    
+    public interface OnPostCardImportEventListener {
+
+        public void onPostCardImportBackAction();
+
+        public void onPostcardImportSuccessAction();
     }
 }

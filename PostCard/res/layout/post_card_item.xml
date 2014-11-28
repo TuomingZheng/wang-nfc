@@ -35,17 +35,6 @@
             android:textColor="@color/setting_common_line"
             android:textSize="20sp" />
         
-        <TextView
-            android:id="@+id/contact_input_to_nfc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@id/contact_name"
-            android:layout_marginLeft="6dp"
-            android:textColor="@color/setting_common_line"
-            android:text="@string/post_card_insert_into_nfc"
-            android:textSize="20sp" />
-        
         <ImageView
             android:id="@+id/contact_icon"
             android:layout_width="22dp"
@@ -55,6 +44,18 @@
             android:src="@drawable/btn_check_off"
             android:layout_marginRight="8dp"
              />
+        
+        <TextView
+            android:id="@+id/contact_input_to_nfc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/contact_icon"
+            android:layout_marginRight="6dp"
+            android:textColor="@android:color/holo_blue_bright"
+            android:text="@string/post_card_insert_into_nfc"
+            android:textSize="20sp" />
+        
 
         
     </RelativeLayout>

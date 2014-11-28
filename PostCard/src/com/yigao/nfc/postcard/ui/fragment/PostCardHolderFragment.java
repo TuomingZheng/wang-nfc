@@ -44,20 +44,22 @@ public class PostCardHolderFragment extends Fragment implements OnClickListener 
     private ArrayList<Boolean> mSelectedList = new ArrayList<Boolean>();
 
     private OnPostCardInputActionListener mInputActionListener;
+    private boolean mIsNfcEnable;
 
     public PostCardHolderFragment() {
         super();
     }
 
-    public PostCardHolderFragment(FragmentManager fm) {
+    public PostCardHolderFragment(FragmentManager fm,boolean isNfcEnable) {
         super();
         mFragmentManager = fm;
+        mIsNfcEnable = isNfcEnable;
     }
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-
+        Log.d("morning", "PostCardHolderFragment onAttach is called ");
         if (activity instanceof OnPostCardInputActionListener) {
             mInputActionListener = (OnPostCardInputActionListener) activity;
         }
@@ -68,6 +70,8 @@ public class PostCardHolderFragment extends Fragment implements OnClickListener 
         super.onResume();
         Log.d("morning", "onResume is called ");
     }
+    
+    
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -115,7 +119,7 @@ public class PostCardHolderFragment extends Fragment implements OnClickListener 
                     for (int i = 0; i < mData.size(); i++) {
                         mSelectedList.add(false);
                     }
-                    mAdapter = new PostCardListAdapter(getActivity(), mData, mSelectedList);
+                    mAdapter = new PostCardListAdapter(getActivity(), mData, mSelectedList,mIsNfcEnable);
                     mListView.setAdapter(mAdapter);
                     mListView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -142,7 +146,7 @@ public class PostCardHolderFragment extends Fragment implements OnClickListener 
     }
 
     public void notifyDataWhenInsertNfcCard() {
-        mAdapter.notifyDataSetChanged();
+        initData();
     }
 
     @Override
@@ -161,24 +165,34 @@ public class PostCardHolderFragment extends Fragment implements OnClickListener 
             mRigthButtonMenu.setVisibility(View.GONE);
         } else if (v == mImportTextView) {
             mFragmentManager
-                    .beginTransaction()
-                    .add(R.id.main_activity_root,
-                            new PostCardImportContactsFragment(mFragmentManager))
-                    .commitAllowingStateLoss();
+                    .beginTransaction().replace(
+                            R.id.main_activity_root, new PostCardImportContactsFragment(mFragmentManager))
+                            .addToBackStack("Import").commitAllowingStateLoss();
             // 跳到 PostCardImportContactFragment 选择系统联系人
         } else if (v == mInputTextView) {
             mInputActionListener.onInputPostCardManual();
         } else if (v == mRightButtonDelete) {
             // 删除本地postCard
             ArrayList<PostCard> datas = new ArrayList<PostCard>();
+            ArrayList<Boolean> selectDatas = new ArrayList<Boolean>();
             if (mSelectedList != null) {
                 for (int i = 0; i < mSelectedList.size(); i++) {
                     if (mSelectedList.get(i)) {
                         datas.add(mData.get(i));
+                        selectDatas.add(mSelectedList.get(i));
                     }
                 }
             }
-            new DataBaseUtil(getActivity()).deletePostCards(datas);
+            if (datas.size() > 0) {
+                new DataBaseUtil(getActivity()).deletePostCards(datas);
+                mData.removeAll(datas);
+                mSelectedList.removeAll(selectDatas);
+                mAdapter.setMutiMode(false);
+                mAdapter.notifyDataSetChanged();
+                mRightTopMenu.setVisibility(View.GONE);
+                mRightButtonDelete.setVisibility(View.GONE);
+                mRigthButtonMenu.setVisibility(View.VISIBLE);
+            }
         } else if (v == mBackButton) {
             if (mRightButtonDelete.getVisibility() == View.VISIBLE) {
                 mAdapter.setMutiMode(false);

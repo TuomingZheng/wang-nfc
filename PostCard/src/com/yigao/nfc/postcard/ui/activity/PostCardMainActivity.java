@@ -38,9 +38,10 @@ import com.yigao.nfc.postcard.ui.fragment.PostCardEditableFragment;
 import com.yigao.nfc.postcard.ui.fragment.PostCardEditableFragment.OnPostCardEditEventListener;
 import com.yigao.nfc.postcard.ui.fragment.PostCardHolderFragment;
 import com.yigao.nfc.postcard.ui.fragment.PostCardHolderFragment.OnPostCardInputActionListener;
+import com.yigao.nfc.postcard.ui.fragment.PostCardImportContactsFragment.OnPostCardImportEventListener;
 
 public class PostCardMainActivity extends FragmentActivity implements OnClickListener,
-        OnPostCardInputActionListener, OnPostCardEditEventListener, OnPostCardDetailsEventListener {
+        OnPostCardInputActionListener, OnPostCardEditEventListener, OnPostCardDetailsEventListener, OnPostCardImportEventListener {
 
     private PostCardHolderFragment mHolderFragment;
 
@@ -62,6 +63,7 @@ public class PostCardMainActivity extends FragmentActivity implements OnClickLis
     PendingIntent mNfcPendingIntent;
     IntentFilter[] mWriteTagFilters;
     IntentFilter[] mNdefExchangeFilters;
+    private boolean mIsNfcEnable;
 
     @Override
     protected void onActivityResult(int arg0, int arg1, Intent arg2) {
@@ -84,6 +86,7 @@ public class PostCardMainActivity extends FragmentActivity implements OnClickLis
     protected void onResume() {
         super.onResume();
         initNfc();
+        Log.d("morning", "onresume is called ===");
     }
 
     private void initNfc() {
@@ -91,8 +94,10 @@ public class PostCardMainActivity extends FragmentActivity implements OnClickLis
         if (mNfcAdapter == null) {
             Toast.makeText(this, R.string.post_card_no_nfc_hardware_error,
                     Toast.LENGTH_LONG).show();
+            mIsNfcEnable = false;
             return;
         }
+        mIsNfcEnable = true;
         // Handle all of our received NFC intents in this activity.
         mNfcPendingIntent = PendingIntent.getActivity(this, 0, new Intent(this,
                 getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
@@ -304,7 +309,7 @@ public class PostCardMainActivity extends FragmentActivity implements OnClickLis
     }
 
     private void launchHolderFragment(FragmentManager fm) {
-        mHolderFragment = new PostCardHolderFragment(fm);
+        mHolderFragment = new PostCardHolderFragment(fm,mIsNfcEnable);
         fm.beginTransaction().add(R.id.loading_fragment_holder, mHolderFragment)
                 .commitAllowingStateLoss();
     }
@@ -313,6 +318,11 @@ public class PostCardMainActivity extends FragmentActivity implements OnClickLis
     public void onClick(View view) {
         if (view == mPostHolderLayout) {
             // 点击名片夹
+            if(mHolderFragment != null){
+                FragmentManager fm = getSupportFragmentManager();
+                fm.beginTransaction().replace(R.id.loading_fragment_holder, mHolderFragment)
+                        .commitAllowingStateLoss();
+            }
         } else if (view == mCaptureButton) {
             ORCDetectFragment fragment = new ORCDetectFragment();
             FragmentManager fm = getSupportFragmentManager();
@@ -361,6 +371,22 @@ public class PostCardMainActivity extends FragmentActivity implements OnClickLis
     @Override
     public void onPostcardDetailsEditAction(PostCard card) {
 
+    }
+
+    @Override
+    public void onPostCardImportBackAction() {
+        getSupportFragmentManager().popBackStack();
+    }
+
+    @Override
+    public void onPostcardImportSuccessAction() {
+        Log.d("morning", "onPostcardImportSuccessAction is click");
+        if(mHolderFragment != null){
+            FragmentManager fm = getSupportFragmentManager();
+            mHolderFragment = new PostCardHolderFragment(fm,mIsNfcEnable);
+            fm.beginTransaction().replace(R.id.loading_fragment_holder, mHolderFragment)
+                    .commitAllowingStateLoss();
+        }
     }
 
 }

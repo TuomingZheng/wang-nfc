@@ -27,12 +27,14 @@ public class PostCardListAdapter extends BaseAdapter {
     private ViewHolder holder;
     private boolean mIsMutiMode;
     private PostCardMainActivity mActivity;
+    private boolean mIsNfcEnable;
 
-    public PostCardListAdapter(Context context, ArrayList<PostCard> list,ArrayList<Boolean> selectedList) {
+    public PostCardListAdapter(Context context, ArrayList<PostCard> list,ArrayList<Boolean> selectedList,boolean isNfcEnable) {
         mActivity = (PostCardMainActivity)context;
         this.context = context;
         this.mList = list;
         this.mSelectedList = selectedList;
+        this.mIsNfcEnable = isNfcEnable;
     }
     
     public void setMutiMode(boolean isMutiMode){
@@ -86,15 +88,22 @@ public class PostCardListAdapter extends BaseAdapter {
         if(mIsMutiMode){
             holder.postImg.setVisibility(View.VISIBLE);
         }else {
-            holder.postImg.setVisibility(View.GONE);
+            holder.postImg.setVisibility(View.INVISIBLE);
         }
         
+        if(mIsNfcEnable){
+            holder.inputToNfc.setVisibility(View.VISIBLE);
+        }else {
+            holder.inputToNfc.setVisibility(View.GONE);
+        }
+        
+        holder.inputToNfc.setTag(mList.get(position));
         holder.inputToNfc.setOnClickListener(new OnClickListener() {
             
             @Override
             public void onClick(View arg0) {
                 Log.d("morning", "setOnClickListener insert into nfc");
-                mActivity.setWriteMode(true, mList.get(position));
+                mActivity.setWriteMode(true, (PostCard)(holder.inputToNfc.getTag()));
             }
         });
         return convertView;

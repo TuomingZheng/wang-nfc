@@ -27,7 +27,6 @@ import com.yigao.nfc.postcard.database.DataBaseUtil;
 import com.yigao.nfc.postcard.database.model.PostCard;
 import com.yigao.nfc.postcard.ui.adapter.ContactListAdapter;
 import com.yigao.nfc.postcard.ui.adapter.ContactListAdapter.ImportAdapterSelected;
-import com.yigao.nfc.postcard.ui.fragment.PostCardEditableFragment.OnPostCardEditEventListener;
 
 public class PostCardImportContactsFragment extends Fragment implements OnClickListener,ImportAdapterSelected{
 

@@ -76,9 +76,7 @@ public class DataBaseUtil extends DatabaseHelper {
                             String phoneNumber = phones
                                     .getString(phones
                                             .getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-                            String phoneType = phones
-                                    .getString(phones
-                                            .getColumnIndex(ContactsContract.CommonDataKinds.Phone.TYPE));
+                            String phoneType = String.valueOf(0);
                             Log.i("morning", phoneNumber);
                             Log.i("morning", phoneType);
                             contactMobile.setMobileOwnerId(contactId);
@@ -221,7 +219,6 @@ public class DataBaseUtil extends DatabaseHelper {
                 String name = postCursor.getString(postCursor
                         .getColumnIndex(PostCardColumns.CONTACT_NAME));
                 postCard.setContactName(name);
-                Log.d("morning", "get data from db === name is ==" + name);
 
                 // 查询电话号码
                 ArrayList<ContactMobile> mobiles = new ArrayList<ContactMobile>();
@@ -229,20 +226,12 @@ public class DataBaseUtil extends DatabaseHelper {
                         ContactMobileColumns.MOBILE_OWNER + " = ? ", new String[] {
                             name
                         }, null, null, null);
-                if (phoneCursor != null && phoneCursor.moveToFirst()) {
-                    do {
-                        ContactMobile contactMobile = new ContactMobile();
-                        String mobileNumber = phoneCursor.getString(phoneCursor
-                                .getColumnIndex(ContactMobileColumns.MOBILE_NUMBER));
-                        String mobileType = phoneCursor.getString(phoneCursor
-                                .getColumnIndex(ContactMobileColumns.MOBILE_TYPE));
-                        Log.d("morning", "get data from db === mobileNumber is ==" + mobileNumber);
-                        contactMobile.setMobileNumber(mobileNumber);
-                        contactMobile.setMobileType(mobileType);
-                        mobiles.add(contactMobile);
-                    } while (phoneCursor.moveToNext());
+                if (phoneCursor != null) {
+                    while (phoneCursor.moveToNext()) {
+                        mobiles.add(parseCursorToContactMobile(phoneCursor));
+                    }
+                    closeCursor(phoneCursor);
                 }
-                closeCursor(phoneCursor);
 
                 // 查询公司信息
                 ArrayList<ContactCompany> companies = new ArrayList<ContactCompany>();
@@ -251,17 +240,12 @@ public class DataBaseUtil extends DatabaseHelper {
                         ContactCompanyColumns.COMPAY_RECORD_OWNER + " = ? ", new String[] {
                             name
                         }, null, null, null);
-                if (companyCursor != null && companyCursor.moveToFirst()) {
-                    do {
-                        ContactCompany contactCompany = new ContactCompany();
-                        String companyName = companyCursor.getString(companyCursor
-                                .getColumnIndex(ContactCompanyColumns.COMPANY_NAME));
-                        Log.d("morning", "get data from db === companyName is ==" + companyName);
-                        contactCompany.setCompanyName(companyName);
-                        companies.add(contactCompany);
-                    } while (companyCursor.moveToNext());
+                if (companyCursor != null) {
+                    while (companyCursor.moveToNext()) {
+                        companies.add(parseCursorToContactCompany(companyCursor));
+                    }
+                    closeCursor(companyCursor);
                 }
-                closeCursor(companyCursor);
 
                 // 查询Email
                 ArrayList<ContactEmail> emails = new ArrayList<ContactEmail>();
@@ -269,17 +253,13 @@ public class DataBaseUtil extends DatabaseHelper {
                         ContactEmailColumns.EMAIL_OWNER + " = ? ", new String[] {
                             name
                         }, null, null, null);
-                if (emailCursor != null && emailCursor.moveToFirst()) {
-                    do {
-                        ContactEmail contactEmail = new ContactEmail();
-                        String email = emailCursor.getString(emailCursor
-                                .getColumnIndex(ContactEmailColumns.EMAIL_ADDRESS));
-                        Log.d("morning", "get data from db === email is ==" + email);
-                        contactEmail.setEmailAddress(email);
-                        emails.add(contactEmail);
-                    } while (emailCursor.moveToNext());
+                if (emailCursor != null) {
+                    while (emailCursor.moveToNext()) {
+                        emails.add(parseCursorToContactEmail(emailCursor));
+                    }
+
+                    closeCursor(emailCursor);
                 }
-                closeCursor(emailCursor);
 
                 postCard.setContactCompany(companies);
                 postCard.setContactEmails(emails);
@@ -415,6 +395,47 @@ public class DataBaseUtil extends DatabaseHelper {
 
             ContentValues cardvalues = getContentValues(postCard);
             super.insert(PostCardSQLiteOpenHelper.TABLE_POST_CARD, cardvalues);
+        }
+    }
+
+    public synchronized void deletePostCard(PostCard card) {
+        if (card != null) {
+            StringBuilder deleteMobileSQL = new StringBuilder();
+            deleteMobileSQL.append(ContactMobileColumns.MOBILE_OWNER);
+            deleteMobileSQL.append("=?");
+
+            super.delete(PostCardSQLiteOpenHelper.TABLE_MOBILE,
+                    deleteMobileSQL.toString(),
+                    new String[] {
+                        card.getContactName()
+                    });
+
+            StringBuilder deleteEmailSQL = new StringBuilder();
+            deleteEmailSQL.append(ContactEmailColumns.EMAIL_OWNER);
+            deleteEmailSQL.append("=?");
+
+            super.delete(PostCardSQLiteOpenHelper.TABLE_EMIAL, deleteEmailSQL.toString(),
+                    new String[] {
+                        card.getContactName()
+                    });
+
+            StringBuilder deleteCompanySQL = new StringBuilder();
+            deleteCompanySQL.append(ContactCompanyColumns.COMPAY_RECORD_OWNER);
+            deleteCompanySQL.append("=?");
+
+            super.delete(PostCardSQLiteOpenHelper.TABLE_COMPANY, deleteCompanySQL.toString(),
+                    new String[] {
+                        card.getContactName()
+                    });
+
+            StringBuilder deletePostCardSQL = new StringBuilder();
+            deletePostCardSQL.append(PostCardColumns.CONTACT_NAME);
+            deletePostCardSQL.append("=?");
+
+            super.delete(PostCardSQLiteOpenHelper.TABLE_POST_CARD, deletePostCardSQL.toString(),
+                    new String[] {
+                        card.getContactName()
+                    });
         }
     }
 

@@ -356,7 +356,9 @@ public class PostCardMainActivity extends FragmentActivity implements OnClickLis
     public void onPostcardEditSaveAction(PostCard card) {
         FragmentManager fm = getSupportFragmentManager();
         fm.popBackStack();
-        (new DataBaseUtil(this)).insertPostCard(card);
+        if (mHolderFragment != null) {
+            mHolderFragment.initData();
+        }
     }
 
     @Override
@@ -367,7 +369,12 @@ public class PostCardMainActivity extends FragmentActivity implements OnClickLis
 
     @Override
     public void onPostcardDetailsEditAction(PostCard card) {
+        FragmentManager fm = getSupportFragmentManager();
+        fm.popBackStack();
 
+        PostCardEditableFragment fragment = new PostCardEditableFragment(card);
+        fm.beginTransaction().replace(R.id.inner_fragment_holder, fragment).addToBackStack("")
+                .commitAllowingStateLoss();
     }
 
     @Override

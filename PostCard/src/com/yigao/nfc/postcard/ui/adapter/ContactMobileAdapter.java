@@ -22,6 +22,8 @@ public class ContactMobileAdapter extends BaseAdapter implements OnClickListener
 
     private List<ContactMobile> mContactMobile;
 
+    private final String[] MOBILE_TYPE;
+
     public ContactMobileAdapter(Context context, List<ContactMobile> mobiles) {
         super();
 
@@ -30,6 +32,7 @@ public class ContactMobileAdapter extends BaseAdapter implements OnClickListener
         if (mobiles != null && !mobiles.isEmpty()) {
             mContactMobile.addAll(mobiles);
         }
+        MOBILE_TYPE = context.getResources().getStringArray(R.array.mobile_type);
     }
 
     @Override
@@ -53,8 +56,9 @@ public class ContactMobileAdapter extends BaseAdapter implements OnClickListener
         if (convertView == null) {
             convertView = mInflater.inflate(R.layout.contact_mobile_item_layout, null, false);
             holder = new ViewHolder();
-            holder.mobileNumberView = (TextView) convertView.findViewById(R.id.mobile_type);
+            holder.mobileTypeView = (TextView) convertView.findViewById(R.id.mobile_type);
             holder.mobileDeleteView = (ImageView) convertView.findViewById(R.id.mobile_delete);
+            holder.mobileNumberView = (TextView) convertView.findViewById(R.id.mobile_number);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -62,6 +66,7 @@ public class ContactMobileAdapter extends BaseAdapter implements OnClickListener
 
         ContactMobile entry = (ContactMobile) getItem(position);
         holder.mobileNumberView.setText(entry.getMobileNumber());
+        holder.mobileTypeView.setText(MOBILE_TYPE[Integer.parseInt(entry.getMobileType())]);
         holder.mobileDeleteView.setOnClickListener(this);
         holder.mobileDeleteView.setTag(entry);
 
@@ -88,6 +93,7 @@ public class ContactMobileAdapter extends BaseAdapter implements OnClickListener
 
     static class ViewHolder {
         TextView mobileNumberView;
+        TextView mobileTypeView;
         ImageView mobileDeleteView;
     }
 }

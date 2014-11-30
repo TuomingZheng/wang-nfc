@@ -12,7 +12,7 @@
     <ListView
         android:id="@+id/mobile_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="80dp"
         android:cacheColorHint="@null"
         android:divider="@android:color/holo_blue_dark"
         android:dividerHeight="2px" />

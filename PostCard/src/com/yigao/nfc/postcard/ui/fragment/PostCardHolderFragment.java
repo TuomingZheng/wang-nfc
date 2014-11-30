@@ -122,7 +122,6 @@ public class PostCardHolderFragment extends Fragment implements OnClickListener 
                         @Override
                         public void onItemClick(AdapterView<?> arg0, View view, int position,
                                 long arg3) {
-                            Log.d("zheng", "onItemClick() method called!");
                             if (mInputActionListener != null) {
                                 PostCard card = mAdapter.getItem(position);
                                 mInputActionListener.onReviewPostCardContact(card);

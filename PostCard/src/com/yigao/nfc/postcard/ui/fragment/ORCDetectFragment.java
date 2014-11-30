@@ -330,7 +330,6 @@ public class ORCDetectFragment extends Fragment implements View.OnClickListener 
     }
 
     private void parsePostCardInfo(String text) {
-        Log.d("zheng", "text = " + text);
         final String namePrefx = "姓名";
         parsePostCardItem(namePrefx, text, mNameEditText);
 

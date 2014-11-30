@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="60dp"
+    android:layout_height="wrap_content"
     android:background="@android:color/white"
     android:orientation="horizontal"
     android:paddingLeft="10dp"
@@ -9,7 +9,7 @@
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_gravity="center_vertical"
         android:gravity="center_vertical"
         android:text="@string/post_card_mobile_type"
@@ -19,17 +19,28 @@
     <TextView
         android:id="@+id/mobile_type"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1.0"
+        android:gravity="center_vertical"
+        android:paddingLeft="5dp"
+        android:textColor="@android:color/black"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/mobile_number"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
         android:layout_gravity="center_vertical"
         android:layout_weight="1.0"
         android:gravity="center_vertical"
         android:textColor="@android:color/black"
-        android:textSize="18sp" />
+        android:textSize="20sp" />
 
     <ImageView
         android:id="@+id/mobile_delete"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_gravity="center_vertical"
         android:background="@null"
         android:clickable="true"

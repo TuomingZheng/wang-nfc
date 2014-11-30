@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -65,6 +66,7 @@ public class ContactCompanyAdapter extends BaseAdapter implements OnClickListene
 
         ContactCompany entry = (ContactCompany) getItem(position);
         holder.companyAddressView.setText(entry.getCompanyAddress());
+        Log.d("zheng", "add = " + entry.getCompanyAddress());
         holder.companyDepartView.setText(entry.getDepartment());
         holder.companyNameView.setText(entry.getCompanyName());
         holder.companyStaffView.setText(entry.getStaff());

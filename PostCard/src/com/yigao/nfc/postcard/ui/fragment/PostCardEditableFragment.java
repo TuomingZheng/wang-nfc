@@ -22,6 +22,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.nfc.wang.postcard.R;
+import com.yigao.nfc.postcard.database.DataBaseUtil;
 import com.yigao.nfc.postcard.database.model.ContactCompany;
 import com.yigao.nfc.postcard.database.model.ContactEmail;
 import com.yigao.nfc.postcard.database.model.ContactMobile;
@@ -158,8 +159,7 @@ public class PostCardEditableFragment extends Fragment implements OnClickListene
         mMobileListView = (ListView) bottomLayout.findViewById(R.id.mobile_list);
         mMobileListView.setEmptyView(mobileEmptyView);
 
-        mMobileAdapter = new ContactMobileAdapter(getActivity(),
-                mPostCard.getContactMobile());
+        mMobileAdapter = new ContactMobileAdapter(getActivity(), mPostCard.getContactMobile());
         mMobileListView.setAdapter(mMobileAdapter);
     }
 
@@ -277,6 +277,8 @@ public class PostCardEditableFragment extends Fragment implements OnClickListene
                 mPostCard.setContactName(name.toString());
             }
         });
+
+        mFamilyNameEditText.setText(mPostCard.getContactName());
     }
 
     private void performContactMobileAction() {
@@ -284,7 +286,7 @@ public class PostCardEditableFragment extends Fragment implements OnClickListene
         entry.setMobileMCC("");
         entry.setMobileOwnerId(mPostCard.getContactName());
         entry.setMobileNumber(mMobileEditText.getText().toString());
-        entry.setMobileType(mMobileTypeSpinner.getSelectedItem().toString());
+        entry.setMobileType(String.valueOf(mMobileTypeSpinner.getSelectedItemPosition()));
 
         List<ContactMobile> mobiles = new ArrayList<ContactMobile>();
         mobiles.add(entry);
@@ -309,6 +311,10 @@ public class PostCardEditableFragment extends Fragment implements OnClickListene
         company.setStaff(mCompanyStaffEditText.getText().toString());
         company.setDepartment(mCompanyDepartEditText.getText().toString());
         company.setOwnerId(mPostCard.getContactName());
+
+        List<ContactCompany> companies = new ArrayList<ContactCompany>();
+        companies.add(company);
+        mCompanyAdapter.addContactCompany(companies);
     }
 
     private void performPostCardAction() {
@@ -316,6 +322,7 @@ public class PostCardEditableFragment extends Fragment implements OnClickListene
         StringBuilder name = new StringBuilder(family);
         name.append(mLastNameEditText.getEditableText().toString());
         mPostCard.setContactName(name.toString());
+        mPostCard.setID(name.toString());
 
         mPostCard.setContactMobile(mMobileAdapter.getContactMobiles());
         mPostCard.setContactEmails(mEmailAdapter.getContactEmails());
@@ -323,6 +330,9 @@ public class PostCardEditableFragment extends Fragment implements OnClickListene
 
         mPostCard.setRecordGenerateAddress("");
         mPostCard.setRecordGenerateTimeStamp(System.currentTimeMillis());
+
+        (new DataBaseUtil(getActivity())).deletePostCard(mPostCard);
+        (new DataBaseUtil(getActivity())).insertPostCard(mPostCard);
     }
 
     @Override

@@ -21,9 +21,7 @@ public class ORCImagePreProcess {
     }
 
     public static Bitmap converyToGrayImg(Bitmap img) {
-
         setImgInfo(img);
-
         return getGrayImg();
     }
 

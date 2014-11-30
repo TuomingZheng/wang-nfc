@@ -63,7 +63,7 @@ public class PostCardSQLiteOpenHelper extends SQLiteOpenHelper {
         sql.append(PostCardColumns.CONTACT_PINYIN).append(" text,");
         sql.append(PostCardColumns.CONTACT_GENDER).append(" integer,");
         sql.append(PostCardColumns.CONTACT_BIRTHDAY).append(" integer,");
-        sql.append(PostCardColumns.CONTACT_IDENTIFICATION).append(" text unique not null,");
+        sql.append(PostCardColumns.CONTACT_IDENTIFICATION).append(" text unique not null default '',");
         sql.append(PostCardColumns.CONTACT_GENERATE_ADDRESS).append(" text,");
         sql.append(PostCardColumns.CONTACT_GENERATE_TIMESTAMP).append(" integer");
         sql.append(");");
@@ -77,7 +77,7 @@ public class PostCardSQLiteOpenHelper extends SQLiteOpenHelper {
         sql.append(TABLE_MOBILE);
         sql.append("(");
         sql.append(ContactMobileColumns._ID).append(" integer  primary key autoincrement,");
-        sql.append(ContactMobileColumns.MOBILE_TYPE).append(" integer not null,");
+        sql.append(ContactMobileColumns.MOBILE_TYPE).append(" integer not null default 0,");
         sql.append(ContactMobileColumns.MOBILE_MCC).append(" integer,");
         sql.append(ContactMobileColumns.MOBILE_NUMBER).append(" text not null,");
         sql.append(ContactMobileColumns.MOBILE_OWNER).append(" text not null");
@@ -92,7 +92,7 @@ public class PostCardSQLiteOpenHelper extends SQLiteOpenHelper {
         sql.append(TABLE_EMIAL);
         sql.append(" ( ");
         sql.append(ContactEmailColumns._ID).append(" integer  primary key autoincrement,");
-        sql.append(ContactEmailColumns.EMAIL_TYPE).append(" integer not null,");
+        sql.append(ContactEmailColumns.EMAIL_TYPE).append(" integer not null  default 0,");
         sql.append(ContactEmailColumns.EMAIL_ADDRESS).append(" text not null unique,");
         sql.append(ContactEmailColumns.EMAIL_OWNER).append(" text not null");
         sql.append(");");

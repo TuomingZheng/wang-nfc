@@ -2,8 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical"
-     >
+    android:orientation="vertical" >
 
     <include
         android:id="@+id/action_bar_holder"
@@ -59,26 +58,26 @@
 
         <LinearLayout
             android:id="@+id/right_top_menu"
-            android:layout_width="120dp"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/abc_list_selector_disabled_holo_dark"
+            android:layout_marginRight="-5dp"
+            android:layout_marginTop="-10dp"
+            android:background="@drawable/abc_menu_dropdown_panel_holo_dark"
             android:orientation="vertical"
-            android:paddingBottom="2dp"
-            android:paddingTop="2dp"
             android:visibility="gone" >
 
             <TextView
                 android:id="@+id/muti_operate"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="10dp"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:paddingTop="10dp"
-                android:text="@string/post_card_muti_operate" />
+                android:background="@drawable/menu_selector"
+                android:gravity="center_vertical|left"
+                android:paddingLeft="10dp"
+                android:text="@string/post_card_muti_operate"
+                android:textColor="@android:color/white"
+                android:textSize="20sp" />
 
             <View
                 android:layout_width="wrap_content"
@@ -89,12 +88,13 @@
                 android:id="@+id/import_contact"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="10dp"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:paddingTop="10dp"
+                android:background="@drawable/menu_selector"
+                android:gravity="center_vertical|left"
+                android:paddingLeft="10dp"
                 android:singleLine="true"
-                android:text="@string/post_card_card_holder_import_contact" />
+                android:text="@string/post_card_card_holder_import_contact"
+                android:textColor="@android:color/white"
+                android:textSize="20sp" />
 
             <View
                 android:layout_width="wrap_content"
@@ -105,11 +105,12 @@
                 android:id="@+id/input_contact"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="10dp"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:paddingTop="10dp"
-                android:text="@string/post_card_card_holder_edit_contact" />
+                android:background="@drawable/menu_selector"
+                android:gravity="center_vertical|left"
+                android:paddingLeft="10dp"
+                android:text="@string/post_card_card_holder_edit_contact"
+                android:textColor="@android:color/white"
+                android:textSize="20sp" />
         </LinearLayout>
     </RelativeLayout>
 

@@ -29,27 +29,25 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-         >
+        android:layout_centerVertical="true" >
 
         <ImageButton
             android:id="@+id/action_bar_menu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right|center_vertical"
-            android:background="@drawable/abc_ic_menu_moreoverflow_normal_holo_light" />
-        
+            android:background="@drawable/more_options_selector" />
+
         <TextView
             android:id="@+id/action_bar_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right|center_vertical"
-            android:text="@string/post_card_delete"
-            android:textSize="20sp"
-            android:textColor="@android:color/white"
             android:layout_marginRight="5dp"
-            android:visibility="gone"
-             />
+            android:text="@string/post_card_delete"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:visibility="gone" />
     </FrameLayout>
 
 </RelativeLayout>

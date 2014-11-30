@@ -33,6 +33,8 @@ import com.yigao.nfc.postcard.database.DataBaseUtil;
 import com.yigao.nfc.postcard.database.model.PostCard;
 import com.yigao.nfc.postcard.ui.fragment.LoadingFragment;
 import com.yigao.nfc.postcard.ui.fragment.ORCDetectFragment;
+import com.yigao.nfc.postcard.ui.fragment.ORCDetectFragment.OnORCDetectEventListener;
+import com.yigao.nfc.postcard.ui.fragment.PostCardDetailsFragment;
 import com.yigao.nfc.postcard.ui.fragment.PostCardDetailsFragment.OnPostCardDetailsEventListener;
 import com.yigao.nfc.postcard.ui.fragment.PostCardEditableFragment;
 import com.yigao.nfc.postcard.ui.fragment.PostCardEditableFragment.OnPostCardEditEventListener;
@@ -41,7 +43,8 @@ import com.yigao.nfc.postcard.ui.fragment.PostCardHolderFragment.OnPostCardInput
 import com.yigao.nfc.postcard.ui.fragment.PostCardImportContactsFragment.OnPostCardImportEventListener;
 
 public class PostCardMainActivity extends FragmentActivity implements OnClickListener,
-        OnPostCardInputActionListener, OnPostCardEditEventListener, OnPostCardDetailsEventListener, OnPostCardImportEventListener {
+        OnPostCardInputActionListener, OnPostCardEditEventListener, OnPostCardDetailsEventListener,
+        OnPostCardImportEventListener, OnORCDetectEventListener {
 
     private PostCardHolderFragment mHolderFragment;
 
@@ -64,12 +67,6 @@ public class PostCardMainActivity extends FragmentActivity implements OnClickLis
     IntentFilter[] mWriteTagFilters;
     IntentFilter[] mNdefExchangeFilters;
     private boolean mIsNfcEnable;
-
-    @Override
-    protected void onActivityResult(int arg0, int arg1, Intent arg2) {
-        super.onActivityResult(arg0, arg1, arg2);
-        Log.d("zheng", "onActivityResult() method called!");
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -276,7 +273,6 @@ public class PostCardMainActivity extends FragmentActivity implements OnClickLis
                 };
             }
         } else {
-            Log.d("morning", "Unknown intent.");
             finish();
         }
         return msgs;
@@ -309,8 +305,8 @@ public class PostCardMainActivity extends FragmentActivity implements OnClickLis
     }
 
     private void launchHolderFragment(FragmentManager fm) {
-        mHolderFragment = new PostCardHolderFragment(fm,mIsNfcEnable);
-        fm.beginTransaction().add(R.id.loading_fragment_holder, mHolderFragment)
+        mHolderFragment = new PostCardHolderFragment(fm, mIsNfcEnable);
+        fm.beginTransaction().add(R.id.inner_fragment_holder, mHolderFragment)
                 .commitAllowingStateLoss();
     }
 
@@ -318,16 +314,16 @@ public class PostCardMainActivity extends FragmentActivity implements OnClickLis
     public void onClick(View view) {
         if (view == mPostHolderLayout) {
             // 点击名片夹
-            if(mHolderFragment != null){
+            if (mHolderFragment != null) {
                 FragmentManager fm = getSupportFragmentManager();
-                fm.beginTransaction().replace(R.id.loading_fragment_holder, mHolderFragment)
+                fm.beginTransaction().replace(R.id.inner_fragment_holder, mHolderFragment)
                         .commitAllowingStateLoss();
             }
         } else if (view == mCaptureButton) {
             ORCDetectFragment fragment = new ORCDetectFragment();
             FragmentManager fm = getSupportFragmentManager();
-            fm.beginTransaction().replace(R.id.loading_fragment_holder, fragment)
-                    .commitAllowingStateLoss();
+            fm.beginTransaction().replace(R.id.inner_fragment_holder, fragment)
+                    .addToBackStack("ORC").commitAllowingStateLoss();
         }
     }
 
@@ -337,7 +333,7 @@ public class PostCardMainActivity extends FragmentActivity implements OnClickLis
         PostCardEditableFragment manualFragment = new PostCardEditableFragment(postCard);
         FragmentManager fm = getSupportFragmentManager();
         fm.beginTransaction().replace(
-                R.id.loading_fragment_holder, manualFragment)
+                R.id.inner_fragment_holder, manualFragment)
                 .addToBackStack("Manual").commitAllowingStateLoss();
     }
 
@@ -365,7 +361,8 @@ public class PostCardMainActivity extends FragmentActivity implements OnClickLis
 
     @Override
     public void onPostCardDetailsBackAction() {
-
+        FragmentManager fm = getSupportFragmentManager();
+        fm.popBackStack();
     }
 
     @Override
@@ -379,13 +376,33 @@ public class PostCardMainActivity extends FragmentActivity implements OnClickLis
     }
 
     @Override
+    public void onReviewPostCardContact(PostCard card) {
+        FragmentManager fm = getSupportFragmentManager();
+        PostCardDetailsFragment fragment = new PostCardDetailsFragment(card);
+        fm.beginTransaction().replace(R.id.inner_fragment_holder, fragment)
+                .addToBackStack("").commitAllowingStateLoss();
+    }
+
+    @Override
     public void onPostcardImportSuccessAction() {
-        Log.d("morning", "onPostcardImportSuccessAction is click");
-        if(mHolderFragment != null){
+        if (mHolderFragment != null) {
             FragmentManager fm = getSupportFragmentManager();
-            mHolderFragment = new PostCardHolderFragment(fm,mIsNfcEnable);
-            fm.beginTransaction().replace(R.id.loading_fragment_holder, mHolderFragment)
+            mHolderFragment = new PostCardHolderFragment(fm, mIsNfcEnable);
+            fm.beginTransaction().replace(R.id.inner_fragment_holder, mHolderFragment)
                     .commitAllowingStateLoss();
+        }
+    }
+
+    @Override
+    public void onORCDetectCanceled() {
+        getSupportFragmentManager().popBackStack();
+    }
+
+    @Override
+    public void onORCDetectSuccess(PostCard card) {
+        getSupportFragmentManager().popBackStack();
+        if (mHolderFragment != null) {
+            mHolderFragment.initData();
         }
     }
 

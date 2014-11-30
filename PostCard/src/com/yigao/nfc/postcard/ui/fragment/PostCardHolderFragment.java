@@ -16,7 +16,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -50,7 +49,7 @@ public class PostCardHolderFragment extends Fragment implements OnClickListener 
         super();
     }
 
-    public PostCardHolderFragment(FragmentManager fm,boolean isNfcEnable) {
+    public PostCardHolderFragment(FragmentManager fm, boolean isNfcEnable) {
         super();
         mFragmentManager = fm;
         mIsNfcEnable = isNfcEnable;
@@ -70,8 +69,6 @@ public class PostCardHolderFragment extends Fragment implements OnClickListener 
         super.onResume();
         Log.d("morning", "onResume is called ");
     }
-    
-    
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -97,7 +94,7 @@ public class PostCardHolderFragment extends Fragment implements OnClickListener 
         return holderLayout;
     }
 
-    private void initData() {
+    public void initData() {
         mListView.setEmptyView(mEmptyViewLayout);
 
         new AsyncTask<Void, Void, Boolean>() {
@@ -115,28 +112,24 @@ public class PostCardHolderFragment extends Fragment implements OnClickListener 
             @Override
             protected void onPostExecute(Boolean result) {
                 if (result) {
-                    Log.d("morning", "has contact");
                     for (int i = 0; i < mData.size(); i++) {
                         mSelectedList.add(false);
                     }
-                    mAdapter = new PostCardListAdapter(getActivity(), mData, mSelectedList,mIsNfcEnable);
-                    mListView.setAdapter(mAdapter);
+                    mAdapter = new PostCardListAdapter(getActivity(), mData, mSelectedList,
+                            mIsNfcEnable,mInputActionListener);
                     mListView.setOnItemClickListener(new OnItemClickListener() {
 
                         @Override
                         public void onItemClick(AdapterView<?> arg0, View view, int position,
                                 long arg3) {
-                            if (mSelectedList.get(position)) {
-                                mSelectedList.set(position, false);
-                                ((ImageView) view.findViewById(R.id.contact_icon))
-                                        .setImageResource(R.drawable.btn_check_off);
-                            } else {
-                                mSelectedList.set(position, true);
-                                ((ImageView) view.findViewById(R.id.contact_icon))
-                                        .setImageResource(R.drawable.btn_check_on);
+                            Log.d("zheng", "onItemClick() method called!");
+                            if (mInputActionListener != null) {
+                                PostCard card = mAdapter.getItem(position);
+                                mInputActionListener.onReviewPostCardContact(card);
                             }
                         }
                     });
+                    mListView.setAdapter(mAdapter);
                 } else {
                     mMutiModeTextView.setEnabled(false);
                     mMutiModeTextView.setClickable(false);
@@ -165,9 +158,11 @@ public class PostCardHolderFragment extends Fragment implements OnClickListener 
             mRigthButtonMenu.setVisibility(View.GONE);
         } else if (v == mImportTextView) {
             mFragmentManager
-                    .beginTransaction().replace(
-                            R.id.main_activity_root, new PostCardImportContactsFragment(mFragmentManager))
-                            .addToBackStack("Import").commitAllowingStateLoss();
+                    .beginTransaction()
+                    .replace(
+                            R.id.main_activity_root,
+                            new PostCardImportContactsFragment(mFragmentManager))
+                    .addToBackStack("Import").commitAllowingStateLoss();
             // 跳到 PostCardImportContactFragment 选择系统联系人
         } else if (v == mInputTextView) {
             mInputActionListener.onInputPostCardManual();
@@ -210,5 +205,7 @@ public class PostCardHolderFragment extends Fragment implements OnClickListener 
         public void onInputPostCardNFC();
 
         public void onInputPostCardContacts();
+
+        public void onReviewPostCardContact(PostCard card);
     }
 }

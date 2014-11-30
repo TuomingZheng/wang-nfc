@@ -25,11 +25,11 @@
     <string name="post_card_mobile">电话</string>
     <string name="post_card_email">电子邮件</string>
     <string name="post_card_company">公司</string>
-	<string name="post_card_select_all">全选</string>
-	<string name="post_card_dis_select_all">全部取消</string>
-	<string name="post_card_import">导入</string>
-	<string name="post_card_cancel">取消</string>
-	<string name="post_card_no_contact">"暂无系统联系人"</string>
+    <string name="post_card_select_all">全选</string>
+    <string name="post_card_dis_select_all">全部取消</string>
+    <string name="post_card_import">导入</string>
+    <string name="post_card_cancel">取消</string>
+    <string name="post_card_no_contact">"暂无系统联系人"</string>
     <string name="post_card_no_nfc_hardware_error">没有NFC识别设备</string>
     <string name="post_card_muti_operate">批量操作</string>
     <string name="post_card_delete">删除</string>
@@ -37,5 +37,11 @@
     <string name="post_card_insert_success">导入成功</string>
     <string name="post_card_insert_into_nfc">写入到NFC</string>
     <string name="post_card_save">保存</string>
+    <string name="post_card_orc_title">名片识别</string>
+    <string name="post_card_orc_dialog_title">名片识别</string>
+    <string name="post_card_orc_dialog_message">"正在识别中..."</string>
+    <string name="post_card_orc_album">相册选取</string>
+    <string name="post_card_orc_camera">拍照</string>
+    <string name="post_card_orc_image">选中图片：</string>
 
 </resources>

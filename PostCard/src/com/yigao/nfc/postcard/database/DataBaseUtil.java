@@ -4,6 +4,7 @@ package com.yigao.nfc.postcard.database;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -30,12 +31,11 @@ public class DataBaseUtil extends DatabaseHelper {
     public ArrayList<PostCard> queryContactFromDB(Context context) {
         ArrayList<PostCard> mData = new ArrayList<PostCard>();
         // 获得所有的联系人
-        Cursor cur = context.getContentResolver().query(
-                ContactsContract.Contacts.CONTENT_URI,
-                null,
-                null,
-                null,
-                ContactsContract.Contacts.DISPLAY_NAME
+
+        ContentResolver cr = context.getContentResolver();
+
+        Cursor cur = cr.query(ContactsContract.Contacts.CONTENT_URI,
+                null, null, null, ContactsContract.Contacts.DISPLAY_NAME
                         + " COLLATE LOCALIZED ASC");
         // 循环遍历
         if (cur.moveToFirst()) {
@@ -47,13 +47,15 @@ public class DataBaseUtil extends DatabaseHelper {
                 // postCard.set
                 // 获得联系人的ID号
                 String contactId = cur.getString(idColumn);
-                postCard.setID(contactId);
                 // 获得联系人姓名
                 String disPlayName = cur.getString(displayNameColumn);
                 ArrayList<ContactEmail> contactEmails = new ArrayList<ContactEmail>();
                 ArrayList<ContactMobile> contactMobiles = new ArrayList<ContactMobile>();
                 ArrayList<ContactCompany> contactCompanies = new ArrayList<ContactCompany>();
                 postCard.setContactName(disPlayName);
+                postCard.setContactEmails(contactEmails);
+                postCard.setContactMobile(contactMobiles);
+                postCard.setContactCompany(contactCompanies);
 
                 // 查看该联系人有多少个电话号码。如果没有这返回值为0
                 int phoneCount = cur
@@ -216,11 +218,8 @@ public class DataBaseUtil extends DatabaseHelper {
         if (postCursor != null && postCursor.moveToFirst()) {
             do {
                 PostCard postCard = new PostCard();
-                String contactId = postCursor.getString(postCursor
-                        .getColumnIndex(PostCardColumns.CONTACT_IDENTIFICATION));
                 String name = postCursor.getString(postCursor
                         .getColumnIndex(PostCardColumns.CONTACT_NAME));
-                postCard.setID(contactId);
                 postCard.setContactName(name);
                 Log.d("morning", "get data from db === name is ==" + name);
 
@@ -228,7 +227,7 @@ public class DataBaseUtil extends DatabaseHelper {
                 ArrayList<ContactMobile> mobiles = new ArrayList<ContactMobile>();
                 Cursor phoneCursor = mDatabase.query(PostCardSQLiteOpenHelper.TABLE_MOBILE, null,
                         ContactMobileColumns.MOBILE_OWNER + " = ? ", new String[] {
-                            contactId
+                            name
                         }, null, null, null);
                 if (phoneCursor != null && phoneCursor.moveToFirst()) {
                     do {
@@ -250,7 +249,7 @@ public class DataBaseUtil extends DatabaseHelper {
                 Cursor companyCursor = mDatabase.query(PostCardSQLiteOpenHelper.TABLE_COMPANY,
                         null,
                         ContactCompanyColumns.COMPAY_RECORD_OWNER + " = ? ", new String[] {
-                            contactId
+                            name
                         }, null, null, null);
                 if (companyCursor != null && companyCursor.moveToFirst()) {
                     do {
@@ -268,7 +267,7 @@ public class DataBaseUtil extends DatabaseHelper {
                 ArrayList<ContactEmail> emails = new ArrayList<ContactEmail>();
                 Cursor emailCursor = mDatabase.query(PostCardSQLiteOpenHelper.TABLE_EMIAL, null,
                         ContactEmailColumns.EMAIL_OWNER + " = ? ", new String[] {
-                            contactId
+                            name
                         }, null, null, null);
                 if (emailCursor != null && emailCursor.moveToFirst()) {
                     do {
@@ -301,22 +300,22 @@ public class DataBaseUtil extends DatabaseHelper {
     public void deletePostCards(ArrayList<PostCard> postCards) {
         if (postCards != null && postCards.size() > 0) {
             for (PostCard postCard : postCards) {
-                String contactId = postCard.getID();
+                String contactName = postCard.getContactName();
                 mDatabase.delete(PostCardSQLiteOpenHelper.TABLE_COMPANY,
                         ContactCompanyColumns.COMPAY_RECORD_OWNER + " = ? ", new String[] {
-                            contactId
+                            contactName
                         });
                 mDatabase.delete(PostCardSQLiteOpenHelper.TABLE_EMIAL,
                         ContactEmailColumns.EMAIL_OWNER + " = ? ", new String[] {
-                            contactId
+                            contactName
                         });
                 mDatabase.delete(PostCardSQLiteOpenHelper.TABLE_MOBILE,
                         ContactMobileColumns.MOBILE_OWNER + " = ? ", new String[] {
-                            contactId
+                            contactName
                         });
                 mDatabase.delete(PostCardSQLiteOpenHelper.TABLE_POST_CARD,
                         PostCardColumns.CONTACT_IDENTIFICATION + " = ? ", new String[] {
-                            contactId
+                            contactName
                         });
             }
         }
@@ -331,15 +330,16 @@ public class DataBaseUtil extends DatabaseHelper {
         boolean insertSuccess = false;
         if (postCards != null && postCards.size() > 0) {
             for (PostCard postCard : postCards) {
-                String contactId = postCard.getID();
+                String contactName = postCard.getContactName();
                 List<ContactCompany> companies = postCard.getContactCompany();
                 List<ContactEmail> emails = postCard.getContactEmails();
                 List<ContactMobile> mobiles = postCard.getContactMobile();
+                Log.e("morning", "mobiles size is ==" + mobiles.size());
 
                 if (companies != null && companies.size() > 0) {
                     for (ContactCompany company : companies) {
                         ContentValues contentValues = new ContentValues();
-                        contentValues.put(ContactCompanyColumns.COMPAY_RECORD_OWNER, contactId);
+                        contentValues.put(ContactCompanyColumns.COMPAY_RECORD_OWNER, contactName);
                         contentValues.put(ContactCompanyColumns.COMPANY_NAME,
                                 company.getCompanyName());
                         mDatabase.insert(PostCardSQLiteOpenHelper.TABLE_COMPANY, null,
@@ -350,7 +350,7 @@ public class DataBaseUtil extends DatabaseHelper {
                 if (emails != null && emails.size() > 0) {
                     for (ContactEmail email : emails) {
                         ContentValues contentValues = new ContentValues();
-                        contentValues.put(ContactEmailColumns.EMAIL_OWNER, contactId);
+                        contentValues.put(ContactEmailColumns.EMAIL_OWNER, contactName);
                         contentValues.put(ContactEmailColumns.EMAIL_ADDRESS,
                                 email.getEmailAddress());
                         mDatabase.insert(PostCardSQLiteOpenHelper.TABLE_EMIAL, null, contentValues);
@@ -360,18 +360,20 @@ public class DataBaseUtil extends DatabaseHelper {
                 if (mobiles != null && mobiles.size() > 0) {
                     for (ContactMobile mobile : mobiles) {
                         ContentValues contentValues = new ContentValues();
-                        contentValues.put(ContactMobileColumns.MOBILE_OWNER, contactId);
+                        contentValues.put(ContactMobileColumns.MOBILE_OWNER, contactName);
                         contentValues.put(ContactMobileColumns.MOBILE_NUMBER,
                                 mobile.getMobileNumber());
                         contentValues.put(ContactMobileColumns.MOBILE_TYPE,
                                 mobile.getMobileType());
-                        mDatabase
+                        long result = mDatabase
                                 .insert(PostCardSQLiteOpenHelper.TABLE_MOBILE, null, contentValues);
+                        Log.e("morning", "result is ===" + result);
+
                     }
                 }
 
                 ContentValues postcardContentValues = new ContentValues();
-                postcardContentValues.put(PostCardColumns.CONTACT_IDENTIFICATION, contactId);
+                postcardContentValues.put(PostCardColumns.CONTACT_IDENTIFICATION, contactName);
                 postcardContentValues.put(PostCardColumns.CONTACT_NAME, postCard.getContactName());
 
                 long insertValuse = mDatabase.insert(PostCardSQLiteOpenHelper.TABLE_POST_CARD,

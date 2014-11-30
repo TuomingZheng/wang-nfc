@@ -48,8 +48,8 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_gravity="center"
+            android:layout_weight="1"
             android:gravity="center" >
 
             <Button
@@ -62,11 +62,17 @@
     </LinearLayout>
 
     <FrameLayout
-        android:id="@+id/loading_fragment_holder"
+        android:id="@+id/inner_fragment_holder"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/bottom_holder"
-        android:background="#BBCCFF" >
+        android:background="@android:color/white" />
+
+    <FrameLayout
+        android:id="@+id/loading_fragment_holder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent" >
     </FrameLayout>
 
 </RelativeLayout>

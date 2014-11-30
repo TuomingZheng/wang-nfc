@@ -109,4 +109,15 @@ public class PostCard {
         this.contactCompany = contactCompany;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder text = new StringBuilder();
+        text.append("contactName = ").append(contactName).append(",");
+        text.append("contactPinYin = ").append(contactPinYin).append(",");
+        text.append("contactGender = ").append(contactGender).append(",");
+        text.append("contactBirthday = ").append(contactBirthday).append(",");
+        text.append("recordGenerateAddress = ").append(recordGenerateAddress).append(",");
+        text.append("recordGenerateTimeStamp = ").append(recordGenerateTimeStamp);
+        return text.toString();
+    }
 }

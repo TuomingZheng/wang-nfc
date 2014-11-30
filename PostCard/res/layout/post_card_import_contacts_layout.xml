@@ -2,8 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/exchange_bg"
-    android:orientation="vertical" >
+    android:background="@drawable/exchange_bg" >
 
     <include
         android:id="@+id/action_bar_import_contact"
@@ -12,7 +11,7 @@
 
     <LinearLayout
         android:id="@+id/bottom_view"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal" >
@@ -21,10 +20,15 @@
             android:id="@+id/tv_cancel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
             android:layout_weight="1"
+            android:background="@drawable/import_cancel_button_selector"
             android:gravity="center"
-            android:paddingBottom="5dp"
-            android:paddingTop="5dp"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
             android:text="@string/post_card_cancel"
             android:textColor="@android:color/white"
             android:textSize="20sp" />
@@ -33,56 +37,66 @@
             android:id="@+id/tv_select_all"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
             android:layout_weight="1"
+            android:background="@drawable/import_button_selector"
             android:gravity="center"
-            android:paddingBottom="5dp"
-            android:paddingTop="5dp"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
             android:text="@string/post_card_import"
             android:textColor="@android:color/white"
             android:textSize="20sp" />
     </LinearLayout>
 
-    <ListView
-        android:id="@+id/contact_listview"
-        android:layout_below="@id/action_bar_import_contact"
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_above="@id/bottom_view"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:background="@android:color/white"
-        android:divider="@color/setting_common_line"
-        android:dividerHeight="1px"
-        android:scrollbars="none"
-        android:scrollingCache="false"
-        android:visibility="visible" >
-    </ListView>
-    
-    <RelativeLayout
-        android:id="@+id/empty_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:visibility="visible" >
+        android:layout_below="@id/action_bar_import_contact"
+        android:background="@drawable/exchange_bg" >
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:orientation="vertical" >
+        <ListView
+            android:id="@+id/contact_listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"
+            android:divider="@color/setting_common_line"
+            android:dividerHeight="1px"
+            android:scrollbars="none"
+            android:scrollingCache="false"
+            android:visibility="visible" >
+        </ListView>
 
-            <ImageView
+        <RelativeLayout
+            android:id="@+id/empty_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible" >
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:src="@drawable/evaluate_icon_notice" />
+                android:layout_centerInParent="true"
+                android:orientation="vertical" >
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="@string/post_card_no_contact"
-                android:textColor="@android:color/white"
-                android:textSize="15sp" />
-        </LinearLayout>
-    </RelativeLayout>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/evaluate_icon_notice" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/post_card_no_contact"
+                    android:textColor="@android:color/white"
+                    android:textSize="15sp" />
+            </LinearLayout>
+        </RelativeLayout>
+    </FrameLayout>
 
 </RelativeLayout>

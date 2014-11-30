@@ -65,14 +65,7 @@ public class PostCardHolderFragment extends Fragment implements OnClickListener 
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        Log.d("morning", "onResume is called ");
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Log.d("morning", "onCreateView is called");
         View holderLayout = inflater.inflate(R.layout.post_card_holder_layout, null, false);
         mBackButton = (ImageButton) holderLayout.findViewById(R.id.action_bar_back);
         mRigthButtonMenu = (ImageButton) holderLayout.findViewById(R.id.action_bar_menu);
@@ -116,7 +109,7 @@ public class PostCardHolderFragment extends Fragment implements OnClickListener 
                         mSelectedList.add(false);
                     }
                     mAdapter = new PostCardListAdapter(getActivity(), mData, mSelectedList,
-                            mIsNfcEnable,mInputActionListener);
+                            mIsNfcEnable, mInputActionListener);
                     mListView.setOnItemClickListener(new OnItemClickListener() {
 
                         @Override
@@ -141,21 +134,27 @@ public class PostCardHolderFragment extends Fragment implements OnClickListener 
         initData();
     }
 
+    private void updateMenuLayout() {
+        if (mRightTopMenu.getVisibility() == View.VISIBLE) {
+            mRightTopMenu.setVisibility(View.GONE);
+        } else {
+            mRightTopMenu.setVisibility(View.VISIBLE);
+        }
+    }
+
     @Override
     public void onClick(View v) {
         if (v == mRigthButtonMenu) {
-            if (mRightTopMenu.getVisibility() == View.VISIBLE) {
-                mRightTopMenu.setVisibility(View.GONE);
-            } else {
-                mRightTopMenu.setVisibility(View.VISIBLE);
-            }
+            updateMenuLayout();
         } else if (v == mMutiModeTextView) {
+            updateMenuLayout();
             mAdapter.setMutiMode(true);
             mAdapter.notifyDataSetChanged();
             mRightTopMenu.setVisibility(View.GONE);
             mRightButtonDelete.setVisibility(View.VISIBLE);
             mRigthButtonMenu.setVisibility(View.GONE);
         } else if (v == mImportTextView) {
+            updateMenuLayout();
             mFragmentManager
                     .beginTransaction()
                     .replace(
@@ -164,6 +163,7 @@ public class PostCardHolderFragment extends Fragment implements OnClickListener 
                     .addToBackStack("Import").commitAllowingStateLoss();
             // 跳到 PostCardImportContactFragment 选择系统联系人
         } else if (v == mInputTextView) {
+            updateMenuLayout();
             mInputActionListener.onInputPostCardManual();
         } else if (v == mRightButtonDelete) {
             // 删除本地postCard

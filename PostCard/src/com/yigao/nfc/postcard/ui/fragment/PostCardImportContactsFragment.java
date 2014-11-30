@@ -28,7 +28,8 @@ import com.yigao.nfc.postcard.database.model.PostCard;
 import com.yigao.nfc.postcard.ui.adapter.ContactListAdapter;
 import com.yigao.nfc.postcard.ui.adapter.ContactListAdapter.ImportAdapterSelected;
 
-public class PostCardImportContactsFragment extends Fragment implements OnClickListener,ImportAdapterSelected{
+public class PostCardImportContactsFragment extends Fragment implements OnClickListener,
+        ImportAdapterSelected {
 
     private ImageButton mBackButton;
     private TextView mRigthButton;
@@ -79,8 +80,6 @@ public class PostCardImportContactsFragment extends Fragment implements OnClickL
     }
 
     private void initData() {
-        mListView.setEmptyView(mEmptyViewLayout);
-
         new AsyncTask<Void, Void, Boolean>() {
 
             @Override
@@ -96,11 +95,11 @@ public class PostCardImportContactsFragment extends Fragment implements OnClickL
             @Override
             protected void onPostExecute(Boolean result) {
                 if (result) {
-                    Log.d("morning", "has contact");
                     for (int i = 0; i < mData.size(); i++) {
                         mSelectedList.add(false);
                     }
-                    mAdapter = new ContactListAdapter(getActivity(), mData, mSelectedList,PostCardImportContactsFragment.this);
+                    mAdapter = new ContactListAdapter(getActivity(), mData, mSelectedList,
+                            PostCardImportContactsFragment.this);
                     mListView.setAdapter(mAdapter);
                     mListView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -126,6 +125,7 @@ public class PostCardImportContactsFragment extends Fragment implements OnClickL
                             selectAll(isSelectedAll);
                         }
                     });
+                    mListView.setEmptyView(mEmptyViewLayout);
                 }
             }
         }.execute();
@@ -134,14 +134,14 @@ public class PostCardImportContactsFragment extends Fragment implements OnClickL
     @Override
     public void onClick(View v) {
         if (v == mRigthButton) {
-            if(mRigthButton.getText().equals(getString(R.string.post_card_select_all))){
+            if (mRigthButton.getText().equals(getString(R.string.post_card_select_all))) {
                 mRigthButton.setText(R.string.post_card_dis_select_all);
                 if (mSelectedList != null) {
                     for (int i = 0; i < mSelectedList.size(); i++) {
                         mSelectedList.set(i, true);
                     }
                 }
-            }else {
+            } else {
                 Log.d("morning", "select all");
                 mRigthButton.setText(R.string.post_card_select_all);
                 if (mSelectedList != null) {
@@ -159,20 +159,23 @@ public class PostCardImportContactsFragment extends Fragment implements OnClickL
                 for (int i = 0; i < mSelectedList.size(); i++) {
                     if (mSelectedList.get(i)) {
                         datas.add(mData.get(i));
-                    } 
+                    }
                 }
             }
             boolean isInsertSuccess = new DataBaseUtil(getActivity()).insertPostCards(datas);
-            Log.d("morning", "mImportTextView click 导入系统联系人 选中的个数为===" + datas.size()+"insert is success=="+isInsertSuccess);
+            Log.d("morning", "mImportTextView click 导入系统联系人 选中的个数为===" + datas.size()
+                    + "insert is success==" + isInsertSuccess);
             // 导入联系人成功 跳到holderFrament
             if (isInsertSuccess) {
-                Toast.makeText(getActivity(),R.string.post_card_insert_success, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), R.string.post_card_insert_success, Toast.LENGTH_SHORT)
+                        .show();
                 mFragmentManager.popBackStack();
                 mEventListener.onPostcardImportSuccessAction();
-            }else {
-                Toast.makeText(getActivity(),R.string.post_card_insert_failure, Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getActivity(), R.string.post_card_insert_failure, Toast.LENGTH_SHORT)
+                        .show();
             }
-            
+
         } else if (v == mCancelTextView) {
             Log.d("morning", "mCancelTextView clic1k");
             // 取消
@@ -189,13 +192,13 @@ public class PostCardImportContactsFragment extends Fragment implements OnClickL
 
     @Override
     public void selectAll(boolean isSelectAll) {
-        if(isSelectAll){
+        if (isSelectAll) {
             mRigthButton.setText(R.string.post_card_dis_select_all);
-        }else {
+        } else {
             mRigthButton.setText(R.string.post_card_select_all);
         }
     }
-    
+
     public interface OnPostCardImportEventListener {
 
         public void onPostCardImportBackAction();

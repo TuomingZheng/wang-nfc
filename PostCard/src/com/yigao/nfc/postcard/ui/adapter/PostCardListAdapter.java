@@ -116,7 +116,10 @@ public class PostCardListAdapter extends BaseAdapter {
 
             @Override
             public void onClick(View v) {
-                mActivity.setWriteMode(true, (PostCard) (holder.inputToNfc.getTag()));
+                
+                final String name =   ((TextView)((View)v.getParent()).findViewById(R.id.contact_name)).getText().toString();
+                PostCard postCard = findPostCardByName(name);
+                mActivity.setWriteMode(true, postCard);
                 holder.syncView.performClick();
             }
         });

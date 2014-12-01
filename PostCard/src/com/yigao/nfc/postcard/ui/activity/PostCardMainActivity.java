@@ -126,25 +126,29 @@ public class PostCardMainActivity extends FragmentActivity implements OnClickLis
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
 
-        Log.d("morning", "onNewIntent");
+        Log.d("morning", "onNewIntent"+mWriteMode+"action is ==="+intent.getAction());
         // NDEF exchange mode
         if (!mWriteMode && NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction())) {
             Log.d("morning", "onNewIntent ACTION_NDEF_DISCOVERED");
             NdefMessage[] msgs = getNdefMessages(intent);
             String body = new String(msgs[0].getRecords()[0].getPayload());
             Gson gson = new Gson();
-            PostCard postCard = gson.fromJson(body, PostCard.class);
-            if (postCard != null) {
-                Log.d("morning", "读取到NFC联系人===" + postCard.getContactName());
-                ArrayList<PostCard> list = new ArrayList<PostCard>();
-                list.add(postCard);
-                new DataBaseUtil(this).insertPostCards(list);
-                mHolderFragment.notifyDataWhenInsertNfcCard();
+            try {
+                PostCard postCard = gson.fromJson(body, PostCard.class);
+                if (postCard != null) {
+                    Log.d("morning", "读取到NFC联系人===" + postCard.getContactName());
+                    ArrayList<PostCard> list = new ArrayList<PostCard>();
+                    list.add(postCard);
+                    new DataBaseUtil(this).insertPostCards(list);
+                    mHolderFragment.notifyDataWhenInsertNfcCard();
+                }
+            } catch (Exception e) {
+                Toast.makeText(getApplicationContext(), "读取数据失败", Toast.LENGTH_SHORT).show();
             }
         }
 
         // Tag writing mode
-        if (mWriteMode && NfcAdapter.ACTION_TAG_DISCOVERED.equals(intent.getAction())) {
+        if (mWriteMode && NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction())) {
             Log.d("morning", "onNewIntent ACTION_TAG_DISCOVERED");
             Tag detectedTag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
             writeTag(getNoteAsNdef(), detectedTag);
@@ -214,7 +218,7 @@ public class PostCardMainActivity extends FragmentActivity implements OnClickLis
     }
 
     private void toast(String string) {
-        Toast.makeText(this, string, Toast.LENGTH_SHORT);
+        Toast.makeText(this, string, Toast.LENGTH_SHORT).show();
     }
 
     public void setWriteMode(boolean writeMode, PostCard postCard) {

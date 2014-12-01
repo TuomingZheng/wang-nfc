@@ -37,6 +37,7 @@
 
                 <data android:mimeType="application/vnd.com.yigao.nfc.postcard.beam" />
             </intent-filter>
+            
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED" />
 

@@ -28,7 +28,8 @@
         <activity
             android:name="com.yigao.nfc.postcard.ui.activity.PostCardMainActivity"
             android:launchMode="singleTask"
-            android:theme="@android:style/Theme.NoTitleBar" >
+            android:theme="@android:style/Theme.NoTitleBar"
+            android:windowSoftInputMode="adjustResize" >
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED" />
 
@@ -36,6 +37,7 @@
 
                 <data android:mimeType="application/vnd.com.yigao.nfc.postcard.beam" />
             </intent-filter>
+            
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED" />
 
